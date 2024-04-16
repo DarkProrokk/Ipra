@@ -10,6 +10,9 @@ namespace ServiceLayer.UserService.QueryObject
 {
     public static class UsersListDtoSelect
     {
+        /// <summary>
+        /// Мапинг сущности User в Dto
+        /// </summary>
         public static IQueryable<UsersListDto> MapUsersToDto(this IQueryable<User> users)
         {
             return users.Select(item => new UsersListDto
