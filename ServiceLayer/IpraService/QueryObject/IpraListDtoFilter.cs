@@ -15,7 +15,11 @@ namespace ServiceLayer.IpraService.QueryObject
         [Display(Name = "By Spent")] BySpent,
         [Display(Name = "By Close")] ByClose
     }
-
+    /// <summary>
+    /// Метод расширения для IpraListDto, для фильтрации.
+    /// </summary>
+    /// <param name="ipra">Объект IpraListDto</param>
+    /// <param name="filterBy">enum список фильтров IpraFilterBy</param>
     public static class IpraListDtoFilter
     {
         public static IQueryable<IpraListDto> FilterIpraBy(this IQueryable<IpraListDto> ipra, IpraFilterBy filterBy,
