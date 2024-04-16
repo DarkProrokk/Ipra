@@ -1,4 +1,3 @@
-
 using DataLayer.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,7 +8,8 @@ builder.Services.AddControllersWithViews();
 
 builder.Configuration.AddJsonFile("appsettings.Development.json");
 
-builder.Services.AddDbContext<IpraContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresConnection")));
+builder.Services.AddDbContext<IpraContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresConnection")));
 
 var app = builder.Build();
 
@@ -29,7 +29,7 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    "default",
+    "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
