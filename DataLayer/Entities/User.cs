@@ -1,55 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer.Entities;
 
-public partial class User
+public class User
 {
-    [Key]
-    public int UserId { get; set; }
+    [Key] public int UserId { get; set; }
 
-    [StringLength(50)]
-    [Unicode(false)]
-    public string UserName { get; set; } = null!;
+    [StringLength(50)] [Unicode(false)] public string UserName { get; set; } = null!;
 
-    [StringLength(50)]
-    [Unicode(false)]
-    public string? Surname { get; set; }
+    [StringLength(50)] [Unicode(false)] public string? Surname { get; set; }
 
-    [StringLength(50)]
-    [Unicode(false)]
-    public string? Name { get; set; }
+    [StringLength(50)] [Unicode(false)] public string? Name { get; set; }
 
-    [StringLength(50)]
-    [Unicode(false)]
-    public string? Patronymic { get; set; }
+    [StringLength(50)] [Unicode(false)] public string? Patronymic { get; set; }
 
-    [StringLength(50)]
-    [Unicode(false)]
-    public string? Post { get; set; }
+    [StringLength(50)] [Unicode(false)] public string? Post { get; set; }
 
-    [StringLength(50)]
-    [Unicode(false)]
-    public string? UserEmailAddress { get; set; }
+    [StringLength(50)] [Unicode(false)] public string? UserEmailAddress { get; set; }
 
-    [StringLength(50)]
-    [Unicode(false)]
-    public string? MobileNumber { get; set; }
+    [StringLength(50)] [Unicode(false)] public string? MobileNumber { get; set; }
 
-    [StringLength(50)]
-    [Unicode(false)]
-    public string? OfficialNumber { get; set; }
+    [StringLength(50)] [Unicode(false)] public string? OfficialNumber { get; set; }
 
-    [Column(TypeName = "datetime")]
-    public DateTime? CreatedTS { get; set; }
+    [Column(TypeName = "datetime")] public DateTime? CreatedTS { get; set; }
 
     public int CreatedUserId { get; set; }
 
-    [Column(TypeName = "datetime")]
-    public DateTime? ModifiedTS { get; set; }
+    [Column(TypeName = "datetime")] public DateTime? ModifiedTS { get; set; }
 
     public int ModifiedUserId { get; set; }
 
@@ -57,8 +36,7 @@ public partial class User
 
     public bool? IsLocal { get; set; }
 
-    [Unicode(false)]
-    public string? Password { get; set; }
+    [Unicode(false)] public string? Password { get; set; }
 
     [InverseProperty("CreatedUser")]
     public virtual ICollection<AddressType> AddressTypeCreatedUsers { get; set; } = new List<AddressType>();
@@ -66,8 +44,7 @@ public partial class User
     [InverseProperty("ModifiedUser")]
     public virtual ICollection<AddressType> AddressTypeModifiedUsers { get; set; } = new List<AddressType>();
 
-    [InverseProperty("CreatedUser")]
-    public virtual ICollection<Buro> BuroCreatedUsers { get; set; } = new List<Buro>();
+    [InverseProperty("CreatedUser")] public virtual ICollection<Buro> BuroCreatedUsers { get; set; } = new List<Buro>();
 
     [InverseProperty("ModifiedUser")]
     public virtual ICollection<Buro> BuroModifiedUsers { get; set; } = new List<Buro>();
@@ -89,10 +66,12 @@ public partial class User
     public virtual ICollection<DocType> DocTypeModifiedUsers { get; set; } = new List<DocType>();
 
     [InverseProperty("CreatedUser")]
-    public virtual ICollection<FuncCompensation> FuncCompensationCreatedUsers { get; set; } = new List<FuncCompensation>();
+    public virtual ICollection<FuncCompensation> FuncCompensationCreatedUsers { get; set; } =
+        new List<FuncCompensation>();
 
     [InverseProperty("ModifiedUser")]
-    public virtual ICollection<FuncCompensation> FuncCompensationModifiedUsers { get; set; } = new List<FuncCompensation>();
+    public virtual ICollection<FuncCompensation> FuncCompensationModifiedUsers { get; set; } =
+        new List<FuncCompensation>();
 
     [InverseProperty("CreatedUser")]
     public virtual ICollection<FuncRecovery> FuncRecoveryCreatedUsers { get; set; } = new List<FuncRecovery>();
@@ -100,8 +79,7 @@ public partial class User
     [InverseProperty("ModifiedUser")]
     public virtual ICollection<FuncRecovery> FuncRecoveryModifiedUsers { get; set; } = new List<FuncRecovery>();
 
-    [InverseProperty("User")]
-    public virtual ICollection<GroupsTask> GroupsTasks { get; set; } = new List<GroupsTask>();
+    [InverseProperty("User")] public virtual ICollection<GroupsTask> GroupsTasks { get; set; } = new List<GroupsTask>();
 
     [InverseProperty("CreatedUser")]
     public virtual ICollection<HelpCategory> HelpCategoryCreatedUsers { get; set; } = new List<HelpCategory>();
@@ -115,14 +93,15 @@ public partial class User
     [InverseProperty("ModifiedUser")]
     public virtual ICollection<User> InverseModifiedUser { get; set; } = new List<User>();
 
-    [InverseProperty("CreatedUser")]
-    public virtual ICollection<Ipra> IpraCreatedUsers { get; set; } = new List<Ipra>();
+    [InverseProperty("CreatedUser")] public virtual ICollection<Ipra> IpraCreatedUsers { get; set; } = new List<Ipra>();
 
     [InverseProperty("CreatedUser")]
-    public virtual ICollection<IpraHelpCategory> IpraHelpCategoryCreatedUsers { get; set; } = new List<IpraHelpCategory>();
+    public virtual ICollection<IpraHelpCategory> IpraHelpCategoryCreatedUsers { get; set; } =
+        new List<IpraHelpCategory>();
 
     [InverseProperty("ModifiedUser")]
-    public virtual ICollection<IpraHelpCategory> IpraHelpCategoryModifiedUsers { get; set; } = new List<IpraHelpCategory>();
+    public virtual ICollection<IpraHelpCategory> IpraHelpCategoryModifiedUsers { get; set; } =
+        new List<IpraHelpCategory>();
 
     [InverseProperty("ModifiedUser")]
     public virtual ICollection<Ipra> IpraModifiedUsers { get; set; } = new List<Ipra>();
@@ -136,18 +115,15 @@ public partial class User
     [InverseProperty("ModifiedUser")]
     public virtual ICollection<IpraStatus> IpraStatusModifiedUsers { get; set; } = new List<IpraStatus>();
 
-    [InverseProperty("CreatedUser")]
-    public virtual ICollection<MO> MOCreatedUsers { get; set; } = new List<MO>();
+    [InverseProperty("CreatedUser")] public virtual ICollection<MO> MOCreatedUsers { get; set; } = new List<MO>();
 
-    [InverseProperty("ModifiedUser")]
-    public virtual ICollection<MO> MOModifiedUsers { get; set; } = new List<MO>();
+    [InverseProperty("ModifiedUser")] public virtual ICollection<MO> MOModifiedUsers { get; set; } = new List<MO>();
 
     [ForeignKey("ModifiedUserId")]
     [InverseProperty("InverseModifiedUser")]
     public virtual User ModifiedUser { get; set; } = null!;
 
-    [InverseProperty("CreatedUser")]
-    public virtual ICollection<Move> MoveCreatedUsers { get; set; } = new List<Move>();
+    [InverseProperty("CreatedUser")] public virtual ICollection<Move> MoveCreatedUsers { get; set; } = new List<Move>();
 
     [InverseProperty("ModifiedUser")]
     public virtual ICollection<Move> MoveModifiedUsers { get; set; } = new List<Move>();
@@ -164,11 +140,9 @@ public partial class User
     [InverseProperty("ModifiedUser")]
     public virtual ICollection<RecipientType> RecipientTypeModifiedUsers { get; set; } = new List<RecipientType>();
 
-    [InverseProperty("CreatedUser")]
-    public virtual ICollection<Report> Reports { get; set; } = new List<Report>();
+    [InverseProperty("CreatedUser")] public virtual ICollection<Report> Reports { get; set; } = new List<Report>();
 
-    [InverseProperty("CreatedUser")]
-    public virtual ICollection<Role> RoleCreatedUsers { get; set; } = new List<Role>();
+    [InverseProperty("CreatedUser")] public virtual ICollection<Role> RoleCreatedUsers { get; set; } = new List<Role>();
 
     [InverseProperty("ModifiedUser")]
     public virtual ICollection<Role> RoleModifiedUsers { get; set; } = new List<Role>();
@@ -185,8 +159,7 @@ public partial class User
     [InverseProperty("ModifiedUser")]
     public virtual ICollection<UserMO> UserMOModifiedUsers { get; set; } = new List<UserMO>();
 
-    [InverseProperty("User")]
-    public virtual ICollection<UserMO> UserMOUsers { get; set; } = new List<UserMO>();
+    [InverseProperty("User")] public virtual ICollection<UserMO> UserMOUsers { get; set; } = new List<UserMO>();
 
     [InverseProperty("CreatedUser")]
     public virtual ICollection<UserRole> UserRoleCreatedUsers { get; set; } = new List<UserRole>();
@@ -194,6 +167,5 @@ public partial class User
     [InverseProperty("ModifiedUser")]
     public virtual ICollection<UserRole> UserRoleModifiedUsers { get; set; } = new List<UserRole>();
 
-    [InverseProperty("User")]
-    public virtual ICollection<UserRole> UserRoleUsers { get; set; } = new List<UserRole>();
+    [InverseProperty("User")] public virtual ICollection<UserRole> UserRoleUsers { get; set; } = new List<UserRole>();
 }

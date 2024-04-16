@@ -1,29 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer.Entities;
 
 [Table("AddressType")]
-public partial class AddressType
+public class AddressType
 {
-    [Key]
-    public int Id { get; set; }
+    [Key] public int Id { get; set; }
 
-    [StringLength(100)]
-    public string Name { get; set; } = null!;
+    [StringLength(100)] public string Name { get; set; } = null!;
 
     public int IdMse { get; set; }
 
-    [Column(TypeName = "datetime")]
-    public DateTime? CreatedTS { get; set; }
+    [Column(TypeName = "datetime")] public DateTime? CreatedTS { get; set; }
 
     public int CreatedUserId { get; set; }
 
-    [Column(TypeName = "datetime")]
-    public DateTime? ModifiedTS { get; set; }
+    [Column(TypeName = "datetime")] public DateTime? ModifiedTS { get; set; }
 
     public int ModifiedUserId { get; set; }
 

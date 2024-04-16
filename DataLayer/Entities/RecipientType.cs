@@ -1,28 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer.Entities;
 
 [Table("RecipientType")]
-public partial class RecipientType
+public class RecipientType
 {
-    [Key]
-    public int Id { get; set; }
+    [Key] public int Id { get; set; }
 
     public string Name { get; set; } = null!;
 
     public int IdMse { get; set; }
 
-    [Column(TypeName = "datetime")]
-    public DateTime? CreatedTS { get; set; }
+    [Column(TypeName = "datetime")] public DateTime? CreatedTS { get; set; }
 
     public int CreatedUserId { get; set; }
 
-    [Column(TypeName = "datetime")]
-    public DateTime? ModifiedTS { get; set; }
+    [Column(TypeName = "datetime")] public DateTime? ModifiedTS { get; set; }
 
     public int ModifiedUserId { get; set; }
 
@@ -30,8 +24,7 @@ public partial class RecipientType
     [InverseProperty("RecipientTypeCreatedUsers")]
     public virtual User CreatedUser { get; set; } = null!;
 
-    [InverseProperty("RecipientType")]
-    public virtual ICollection<Ipra> Ipras { get; set; } = new List<Ipra>();
+    [InverseProperty("RecipientType")] public virtual ICollection<Ipra> Ipras { get; set; } = new List<Ipra>();
 
     [ForeignKey("ModifiedUserId")]
     [InverseProperty("RecipientTypeModifiedUsers")]

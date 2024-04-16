@@ -1,27 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer.Entities;
 
-public partial class UserMO
+public class UserMO
 {
-    [Key]
-    public int UserMOsId { get; set; }
+    [Key] public int UserMOsId { get; set; }
 
     public int UserId { get; set; }
 
     public int? MOId { get; set; }
 
-    [Column(TypeName = "datetime")]
-    public DateTime? CreatedTS { get; set; }
+    [Column(TypeName = "datetime")] public DateTime? CreatedTS { get; set; }
 
     public int CreatedUserId { get; set; }
 
-    [Column(TypeName = "datetime")]
-    public DateTime? ModifiedTS { get; set; }
+    [Column(TypeName = "datetime")] public DateTime? ModifiedTS { get; set; }
 
     public int ModifiedUserId { get; set; }
 

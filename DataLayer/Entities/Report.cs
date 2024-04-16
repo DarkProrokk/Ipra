@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer.Entities;
 
-public partial class Report
+public class Report
 {
-    [Key]
-    public int Id { get; set; }
+    [Key] public int Id { get; set; }
 
     public int IpraId { get; set; }
 
@@ -17,29 +13,23 @@ public partial class Report
 
     public int? EventSubtypeId { get; set; }
 
-    [StringLength(128)]
-    public string? CustomEvent { get; set; }
+    [StringLength(128)] public string? CustomEvent { get; set; }
 
-    [Column(TypeName = "datetime")]
-    public DateTime? DatePerfomance { get; set; }
+    [Column(TypeName = "datetime")] public DateTime? DatePerfomance { get; set; }
 
     public int? ExecutorId { get; set; }
 
-    [StringLength(128)]
-    public string? CustomExecutor { get; set; }
+    [StringLength(128)] public string? CustomExecutor { get; set; }
 
     public int? ResultId { get; set; }
 
-    [StringLength(128)]
-    public string? CustomResult { get; set; }
+    [StringLength(128)] public string? CustomResult { get; set; }
 
-    [StringLength(64)]
-    public string? Note { get; set; }
+    [StringLength(64)] public string? Note { get; set; }
 
     public int CreatedUserId { get; set; }
 
-    [Column(TypeName = "datetime")]
-    public DateTime CreatedTS { get; set; }
+    [Column(TypeName = "datetime")] public DateTime CreatedTS { get; set; }
 
     [ForeignKey("CreatedUserId")]
     [InverseProperty("Reports")]

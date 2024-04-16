@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using DataLayer.Entities;
+﻿using DataLayer.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer.Context;
@@ -157,10 +155,7 @@ public partial class IpraContext : DbContext
                 .HasConstraintName("FK_EventSubtype_EventType");
         });
 
-        modelBuilder.Entity<EventType>(entity =>
-        {
-            entity.Property(e => e.Id).ValueGeneratedNever();
-        });
+        modelBuilder.Entity<EventType>(entity => { entity.Property(e => e.Id).ValueGeneratedNever(); });
 
         modelBuilder.Entity<Files>(entity =>
         {
@@ -229,11 +224,11 @@ public partial class IpraContext : DbContext
         modelBuilder.Entity<Ipra>(entity =>
         {
             entity.ToTable("Ipra", tb =>
-                {
-                    tb.HasTrigger("IpraInsMovesHistory");
-                    tb.HasTrigger("IpraUpdMovesHistory");
-                    tb.HasTrigger("IpraUpdTS");
-                });
+            {
+                tb.HasTrigger("IpraInsMovesHistory");
+                tb.HasTrigger("IpraUpdMovesHistory");
+                tb.HasTrigger("IpraUpdTS");
+            });
 
             entity.Property(e => e.CreatedTS).HasDefaultValueSql("(getdate())");
             entity.Property(e => e.HasNoLivingAddress).HasDefaultValue(false);
@@ -262,7 +257,8 @@ public partial class IpraContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_IpraFile");
 
-            entity.HasOne(d => d.LivingAddressType).WithMany(p => p.IpraLivingAddressTypes).HasConstraintName("fk_IpraLivingAddressType");
+            entity.HasOne(d => d.LivingAddressType).WithMany(p => p.IpraLivingAddressTypes)
+                .HasConstraintName("fk_IpraLivingAddressType");
 
             entity.HasOne(d => d.Mo).WithMany(p => p.IpraMos).HasConstraintName("fk_IpraMO");
 
@@ -276,17 +272,23 @@ public partial class IpraContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_IpraPatient");
 
-            entity.HasOne(d => d.PrognozCompensation).WithMany(p => p.Ipras).HasConstraintName("fk_IpraPrognozCompensation");
+            entity.HasOne(d => d.PrognozCompensation).WithMany(p => p.Ipras)
+                .HasConstraintName("fk_IpraPrognozCompensation");
 
             entity.HasOne(d => d.PrognozRecovery).WithMany(p => p.Ipras).HasConstraintName("fk_IpraPrognozRecovery");
 
             entity.HasOne(d => d.RecipientType).WithMany(p => p.Ipras).HasConstraintName("fk_IpraRecipientType");
 
-            entity.HasOne(d => d.RegAddressType).WithMany(p => p.IpraRegAddressTypes).HasConstraintName("fk_IpraRegAddressType");
+            entity.HasOne(d => d.RegAddressType).WithMany(p => p.IpraRegAddressTypes)
+                .HasConstraintName("fk_IpraRegAddressType");
 
-            entity.HasOne(d => d.RepresentativeAuthDocTypeNavigation).WithMany(p => p.IpraRepresentativeAuthDocTypeNavigations).HasConstraintName("fk_IpraRepresentativeAuthDocType");
+            entity.HasOne(d => d.RepresentativeAuthDocTypeNavigation)
+                .WithMany(p => p.IpraRepresentativeAuthDocTypeNavigations)
+                .HasConstraintName("fk_IpraRepresentativeAuthDocType");
 
-            entity.HasOne(d => d.RepresentativeIdentDocTypeNavigation).WithMany(p => p.IpraRepresentativeIdentDocTypeNavigations).HasConstraintName("fk_IpraRepresentativeIdentDocType");
+            entity.HasOne(d => d.RepresentativeIdentDocTypeNavigation)
+                .WithMany(p => p.IpraRepresentativeIdentDocTypeNavigations)
+                .HasConstraintName("fk_IpraRepresentativeIdentDocType");
 
             entity.HasOne(d => d.SenderMo).WithMany(p => p.IpraSenderMos).HasConstraintName("fk_IpraSenderMo");
 

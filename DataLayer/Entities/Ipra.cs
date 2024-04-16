@@ -1,23 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataLayer.Entities;
 
 [Table("Ipra")]
-public partial class Ipra
+public class Ipra
 {
-    [Key]
-    public int id { get; set; }
+    [Key] public int id { get; set; }
 
     public int PatientId { get; set; }
 
-    [StringLength(50)]
-    public string Number { get; set; } = null!;
+    [StringLength(50)] public string Number { get; set; } = null!;
 
-    [StringLength(50)]
-    public string? ProtocolNumber { get; set; }
+    [StringLength(50)] public string? ProtocolNumber { get; set; }
 
     public DateOnly? ProtocolDate { get; set; }
 
@@ -47,8 +42,7 @@ public partial class Ipra
 
     public bool? IsRepresentativeSign { get; set; }
 
-    [StringLength(36)]
-    public string GuidMse { get; set; } = null!;
+    [StringLength(36)] public string GuidMse { get; set; } = null!;
 
     public int StatusId { get; set; }
 
@@ -96,22 +90,17 @@ public partial class Ipra
 
     public int? PreviousIpraId { get; set; }
 
-    [StringLength(50)]
-    public string? RepresentativeSurname { get; set; }
+    [StringLength(50)] public string? RepresentativeSurname { get; set; }
 
-    [StringLength(50)]
-    public string? RepresentativeName { get; set; }
+    [StringLength(50)] public string? RepresentativeName { get; set; }
 
-    [StringLength(50)]
-    public string? RepresentativeLastname { get; set; }
+    [StringLength(50)] public string? RepresentativeLastname { get; set; }
 
     public int? RepresentativeIdentDocType { get; set; }
 
-    [StringLength(50)]
-    public string? RepresentativeIdentDocSeries { get; set; }
+    [StringLength(50)] public string? RepresentativeIdentDocSeries { get; set; }
 
-    [StringLength(50)]
-    public string? RepresentativeIdentDocNumber { get; set; }
+    [StringLength(50)] public string? RepresentativeIdentDocNumber { get; set; }
 
     public string? RepresentativeIdentDocIssuer { get; set; }
 
@@ -119,24 +108,19 @@ public partial class Ipra
 
     public int? RepresentativeAuthDocType { get; set; }
 
-    [StringLength(50)]
-    public string? RepresentativeAuthDocSeries { get; set; }
+    [StringLength(50)] public string? RepresentativeAuthDocSeries { get; set; }
 
-    [StringLength(50)]
-    public string? RepresentativeAuthDocNumber { get; set; }
+    [StringLength(50)] public string? RepresentativeAuthDocNumber { get; set; }
 
     public string? RepresentativeAuthDocIssuer { get; set; }
 
     public DateOnly? RepresentativeAuthDocDate { get; set; }
 
-    [StringLength(50)]
-    public string? BuroHeadSurname { get; set; }
+    [StringLength(50)] public string? BuroHeadSurname { get; set; }
 
-    [StringLength(50)]
-    public string? BuroHeadName { get; set; }
+    [StringLength(50)] public string? BuroHeadName { get; set; }
 
-    [StringLength(50)]
-    public string? BuroHeadLastname { get; set; }
+    [StringLength(50)] public string? BuroHeadLastname { get; set; }
 
     public string? SenderMoName { get; set; }
 
@@ -144,17 +128,13 @@ public partial class Ipra
 
     public DateOnly? DevelopDate { get; set; }
 
-    [StringLength(50)]
-    public string? PatientSurnameMse { get; set; }
+    [StringLength(50)] public string? PatientSurnameMse { get; set; }
 
-    [StringLength(50)]
-    public string? PatientNameMse { get; set; }
+    [StringLength(50)] public string? PatientNameMse { get; set; }
 
-    [StringLength(50)]
-    public string? PatientLastnameMse { get; set; }
+    [StringLength(50)] public string? PatientLastnameMse { get; set; }
 
-    [StringLength(50)]
-    public string? PatientBirthdayMse { get; set; }
+    [StringLength(50)] public string? PatientBirthdayMse { get; set; }
 
     public int? PatientAgeYearsMse { get; set; }
 
@@ -166,21 +146,17 @@ public partial class Ipra
 
     public bool? HasNoRegAddress { get; set; }
 
-    [StringLength(36)]
-    public string? PatientGuidMse { get; set; }
+    [StringLength(36)] public string? PatientGuidMse { get; set; }
 
     public DateOnly? IdentDocDate { get; set; }
 
     public string? IdentDocIssuer { get; set; }
 
-    [StringLength(50)]
-    public string? IdentDocSeries { get; set; }
+    [StringLength(50)] public string? IdentDocSeries { get; set; }
 
-    [StringLength(50)]
-    public string? IdentDocNumber { get; set; }
+    [StringLength(50)] public string? IdentDocNumber { get; set; }
 
-    [StringLength(100)]
-    public string? IdentDocTitle { get; set; }
+    [StringLength(100)] public string? IdentDocTitle { get; set; }
 
     public bool? PatientIsMale { get; set; }
 
@@ -188,189 +164,141 @@ public partial class Ipra
 
     public string? LivingAddressString { get; set; }
 
-    [StringLength(6)]
-    public string? LivingAddressZipcode { get; set; }
+    [StringLength(6)] public string? LivingAddressZipcode { get; set; }
 
     public string? LivingAddressCountry { get; set; }
 
-    [StringLength(50)]
-    public string? LivingAddressTerritoryIdMse { get; set; }
+    [StringLength(50)] public string? LivingAddressTerritoryIdMse { get; set; }
 
     public string? LivingAddressTerritoryName { get; set; }
 
-    [StringLength(36)]
-    public string? LivingAddressTerritoryGuidMse { get; set; }
+    [StringLength(36)] public string? LivingAddressTerritoryGuidMse { get; set; }
 
     public string? LivingAddressDistrict { get; set; }
 
-    [StringLength(36)]
-    public string? LivingAddressDistrictGuidMse { get; set; }
+    [StringLength(36)] public string? LivingAddressDistrictGuidMse { get; set; }
 
-    [StringLength(50)]
-    public string? LivingAddressPlaceTypeIdMse { get; set; }
+    [StringLength(50)] public string? LivingAddressPlaceTypeIdMse { get; set; }
 
-    [StringLength(100)]
-    public string? LivingAddressPlaceTypeName { get; set; }
+    [StringLength(100)] public string? LivingAddressPlaceTypeName { get; set; }
 
-    [StringLength(50)]
-    public string? LivingAddressPlaceKindIdMse { get; set; }
+    [StringLength(50)] public string? LivingAddressPlaceKindIdMse { get; set; }
 
-    [StringLength(100)]
-    public string? LivingAddressPlaceKindName { get; set; }
+    [StringLength(100)] public string? LivingAddressPlaceKindName { get; set; }
 
-    [StringLength(100)]
-    public string? LivingAddressCityDistrict { get; set; }
+    [StringLength(100)] public string? LivingAddressCityDistrict { get; set; }
 
     public string? LivingAddressStreet { get; set; }
 
-    [StringLength(36)]
-    public string? LivingAddressStreetGuidMse { get; set; }
+    [StringLength(36)] public string? LivingAddressStreetGuidMse { get; set; }
 
-    [StringLength(50)]
-    public string? LivingAddressHouse { get; set; }
+    [StringLength(50)] public string? LivingAddressHouse { get; set; }
 
-    [StringLength(36)]
-    public string? LivingAddressHouseGuidMse { get; set; }
+    [StringLength(36)] public string? LivingAddressHouseGuidMse { get; set; }
 
-    [StringLength(50)]
-    public string? LivingAddressCorpus { get; set; }
+    [StringLength(50)] public string? LivingAddressCorpus { get; set; }
 
-    [StringLength(50)]
-    public string? LivingAddressBuilding { get; set; }
+    [StringLength(50)] public string? LivingAddressBuilding { get; set; }
 
-    [StringLength(50)]
-    public string? LivingAddressAppartment { get; set; }
+    [StringLength(50)] public string? LivingAddressAppartment { get; set; }
 
     public int? RegAddressTypeId { get; set; }
 
     public string? RegAddressString { get; set; }
 
-    [StringLength(6)]
-    public string? RegAddressZipcode { get; set; }
+    [StringLength(6)] public string? RegAddressZipcode { get; set; }
 
     public string? RegAddressCountry { get; set; }
 
-    [StringLength(50)]
-    public string? RegAddressTerritoryIdMse { get; set; }
+    [StringLength(50)] public string? RegAddressTerritoryIdMse { get; set; }
 
     public string? RegAddressTerritoryName { get; set; }
 
-    [StringLength(36)]
-    public string? RegAddressTerritoryGuidMse { get; set; }
+    [StringLength(36)] public string? RegAddressTerritoryGuidMse { get; set; }
 
-    [StringLength(100)]
-    public string? RegAddressDistrict { get; set; }
+    [StringLength(100)] public string? RegAddressDistrict { get; set; }
 
-    [StringLength(36)]
-    public string? RegAddressDistrictGuidMse { get; set; }
+    [StringLength(36)] public string? RegAddressDistrictGuidMse { get; set; }
 
-    [StringLength(50)]
-    public string? RegAddressPlaceTypeIdMse { get; set; }
+    [StringLength(50)] public string? RegAddressPlaceTypeIdMse { get; set; }
 
-    [StringLength(100)]
-    public string? RegAddressPlaceTypeName { get; set; }
+    [StringLength(100)] public string? RegAddressPlaceTypeName { get; set; }
 
-    [StringLength(100)]
-    public string? RegAddressPlaceKindIdMse { get; set; }
+    [StringLength(100)] public string? RegAddressPlaceKindIdMse { get; set; }
 
-    [StringLength(100)]
-    public string? RegAddressPlaceKindName { get; set; }
+    [StringLength(100)] public string? RegAddressPlaceKindName { get; set; }
 
-    [StringLength(100)]
-    public string? RegAddressCityDistrict { get; set; }
+    [StringLength(100)] public string? RegAddressCityDistrict { get; set; }
 
     public string? RegAddressStreet { get; set; }
 
-    [StringLength(36)]
-    public string? RegAddressStreetGuidMse { get; set; }
+    [StringLength(36)] public string? RegAddressStreetGuidMse { get; set; }
 
-    [StringLength(50)]
-    public string? RegAddressHouse { get; set; }
+    [StringLength(50)] public string? RegAddressHouse { get; set; }
 
-    [StringLength(36)]
-    public string? RegAddressHouseGuidMse { get; set; }
+    [StringLength(36)] public string? RegAddressHouseGuidMse { get; set; }
 
-    [StringLength(50)]
-    public string? RegAddressCorpus { get; set; }
+    [StringLength(50)] public string? RegAddressCorpus { get; set; }
 
-    [StringLength(50)]
-    public string? RegAddressBuilding { get; set; }
+    [StringLength(50)] public string? RegAddressBuilding { get; set; }
 
-    [StringLength(50)]
-    public string? RegAddressAppartment { get; set; }
+    [StringLength(50)] public string? RegAddressAppartment { get; set; }
 
     public string? PatientPhone { get; set; }
 
-    [StringLength(50)]
-    public string? PatientSnilsMse { get; set; }
+    [StringLength(50)] public string? PatientSnilsMse { get; set; }
 
     public int? RecipientTypeId { get; set; }
 
     public int FileId { get; set; }
 
-    [Column(TypeName = "datetime")]
-    public DateTime? CreatedTS { get; set; }
+    [Column(TypeName = "datetime")] public DateTime? CreatedTS { get; set; }
 
     public int CreatedUserId { get; set; }
 
-    [Column(TypeName = "datetime")]
-    public DateTime? ModifiedTS { get; set; }
+    [Column(TypeName = "datetime")] public DateTime? ModifiedTS { get; set; }
 
     public int ModifiedUserId { get; set; }
 
     public bool IsEndless { get; set; }
 
-    [StringLength(50)]
-    public string? PatientEmail { get; set; }
+    [StringLength(50)] public string? PatientEmail { get; set; }
 
     public bool? ProsthesisIsEndless { get; set; }
 
-    [StringLength(200)]
-    public string? ProsthesisExecutor { get; set; }
+    [StringLength(200)] public string? ProsthesisExecutor { get; set; }
 
     public bool? ReconsSurgeryIsEndless { get; set; }
 
-    [StringLength(200)]
-    public string? ReconsSurgeryExecutor { get; set; }
+    [StringLength(200)] public string? ReconsSurgeryExecutor { get; set; }
 
     public bool? ResortIsEndless { get; set; }
 
-    [StringLength(200)]
-    public string? ResortExecutor { get; set; }
+    [StringLength(200)] public string? ResortExecutor { get; set; }
 
-    [StringLength(100)]
-    public string? LivingAddressPlace { get; set; }
+    [StringLength(100)] public string? LivingAddressPlace { get; set; }
 
-    [StringLength(36)]
-    public string? LivingAddressPlaceGuidMse { get; set; }
+    [StringLength(36)] public string? LivingAddressPlaceGuidMse { get; set; }
 
-    [StringLength(100)]
-    public string? RegAddressPlace { get; set; }
+    [StringLength(100)] public string? RegAddressPlace { get; set; }
 
-    [StringLength(36)]
-    public string? RegAddressPlaceGuidMse { get; set; }
+    [StringLength(36)] public string? RegAddressPlaceGuidMse { get; set; }
 
     public int? PatientAgeYears { get; set; }
 
     public int? PatientAgeMonths { get; set; }
 
-    [StringLength(50)]
-    public string? PatientAgeText { get; set; }
+    [StringLength(50)] public string? PatientAgeText { get; set; }
 
-    [Column(TypeName = "datetime")]
-    public DateTime? CompliteRepportDate { get; set; }
+    [Column(TypeName = "datetime")] public DateTime? CompliteRepportDate { get; set; }
 
-    [StringLength(200)]
-    public string? SectorNumber { get; set; }
+    [StringLength(200)] public string? SectorNumber { get; set; }
 
-    [StringLength(200)]
-    public string? SectorName { get; set; }
+    [StringLength(200)] public string? SectorName { get; set; }
 
-    [StringLength(200)]
-    public string? SectorType { get; set; }
+    [StringLength(200)] public string? SectorType { get; set; }
 
-    [Column(TypeName = "datetime")]
-    public DateTime? DecisionDate { get; set; }
+    [Column(TypeName = "datetime")] public DateTime? DecisionDate { get; set; }
 
     public string? SenderMoNameMSE { get; set; }
 
@@ -384,8 +312,7 @@ public partial class Ipra
 
     public bool? IsDisabilityGroupPrimary { get; set; }
 
-    [Column(TypeName = "datetime")]
-    public DateTime? DisabilityGroupDate { get; set; }
+    [Column(TypeName = "datetime")] public DateTime? DisabilityGroupDate { get; set; }
 
     public bool? IsIntramural { get; set; }
 
@@ -513,8 +440,7 @@ public partial class Ipra
     [InverseProperty("IpraRegAddressTypes")]
     public virtual AddressType? RegAddressType { get; set; }
 
-    [InverseProperty("Ipra")]
-    public virtual ICollection<Report> Reports { get; set; } = new List<Report>();
+    [InverseProperty("Ipra")] public virtual ICollection<Report> Reports { get; set; } = new List<Report>();
 
     [ForeignKey("RepresentativeAuthDocType")]
     [InverseProperty("IpraRepresentativeAuthDocTypeNavigations")]

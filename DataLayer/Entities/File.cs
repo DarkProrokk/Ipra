@@ -1,31 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer.Entities;
 
 [Table("Files")]
-public partial class Files
+public class Files
 {
-    [Key]
-    public int id { get; set; }
+    [Key] public int id { get; set; }
 
     public string Path { get; set; } = null!;
 
-    [Column(TypeName = "datetime")]
-    public DateTime? CreatedTS { get; set; }
+    [Column(TypeName = "datetime")] public DateTime? CreatedTS { get; set; }
 
     public int? PatientId { get; set; }
 
-    [InverseProperty("Files")]
-    public virtual ICollection<Ipra> Ipras { get; set; } = new List<Ipra>();
+    [InverseProperty("Files")] public virtual ICollection<Ipra> Ipras { get; set; } = new List<Ipra>();
 
     [ForeignKey("PatientId")]
     [InverseProperty("Files")]
     public virtual Patient? Patient { get; set; }
 
-    [InverseProperty("Files")]
-    public virtual ICollection<Tasks> Tasks { get; set; } = new List<Tasks>();
+    [InverseProperty("Files")] public virtual ICollection<Tasks> Tasks { get; set; } = new List<Tasks>();
 }

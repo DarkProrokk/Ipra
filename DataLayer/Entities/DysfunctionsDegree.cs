@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer.Entities;
 
-public partial class DysfunctionsDegree
+public class DysfunctionsDegree
 {
-    [Key]
-    public int Id { get; set; }
+    [Key] public int Id { get; set; }
 
     public int? Vision { get; set; }
 
@@ -43,6 +39,5 @@ public partial class DysfunctionsDegree
 
     public int? PhisicalDysfunction { get; set; }
 
-    [InverseProperty("DD")]
-    public virtual ICollection<Ipra> Ipras { get; set; } = new List<Ipra>();
+    [InverseProperty("DD")] public virtual ICollection<Ipra> Ipras { get; set; } = new List<Ipra>();
 }
