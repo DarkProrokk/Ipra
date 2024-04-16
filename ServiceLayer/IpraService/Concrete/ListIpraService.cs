@@ -1,26 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataLayer.Context;
+﻿using DataLayer.Context;
 using DataLayer.QueryObjects;
 using Microsoft.EntityFrameworkCore;
 using ServiceLayer.IpraService.QueryObject;
 
 namespace ServiceLayer.IpraService.Concrete;
-public class ListIpraService(IpraContext context)
+
+/// <summary>
+/// Класс ListIpraService предоставляет функционал для сортировки, фильтрации и постраничного вывода данных IpraListDto.
+/// </summary>
+public class ListIpraService
 {
-    public IQueryable<IpraListDto> SortFilterPage(SortFilterPageOptions<IpraFilterBy> options)
+    private readonly IpraContext _context;
+
+    /// <summary>
+    /// Конструктор класса ListIpraService.
+    /// </summary>
+    /// <param name="context">Экземпляр контекста IpraContext.</param>
+    public ListIpraService(IpraContext context)
     {
-        var ipraQuery = context.Ipras
-            .AsNoTracking()
+        _context = context;
+    }
+
+    /// <summary>
+    /// Метод SortFilterPage возвращает отсортированный и отфильтрованный список IpraListDto, разбитый на страницы.
+    /// </summary>
+    /// <param name="options">Параметры сортировки и фильтрации.</param>
+    /// <returns>Отсортированный и отфильтрованный список IpraListDto, разбитый на страницы.</returns>
+    public IQueryable<IpraListDto> SortFilterPage(IpraSortFilterPageOptions options)
+    {
+        // Создаем запрос, который будет использоваться для сортировки и фильтрации данных.
+        IQueryable<IpraListDto> ipraQuery = _context.Ipras
+            .AsNoTracking() // Отключаем отслеживание изменений объектов.
             .MapIpraToDto()
             .OrderBy(x => x.id)
-            .FilterIpraBy(options.FilterBy, options.FilterValue);
+            .FilterIpraByStatus(options.FilterByStatus) 
+            .FilterIpraByEndless(options.FilterByEndless); 
 
+        // Устанавливаем дополнительные параметры для Dto.
         options.SetupRestOfDto(ipraQuery);
 
+        // Возвращаем результат запроса, разбитый на страницы.
         return ipraQuery.Page(options.PageNum - 1, options.PageSize);
     }
 }

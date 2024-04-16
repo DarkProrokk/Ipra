@@ -1,49 +1,73 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace ServiceLayer.IpraService.QueryObject
+namespace ServiceLayer.IpraService.QueryObject;
+
+public enum IpraFilterByStatus
 {
-    public enum IpraFilterBy
-    {
-        [Display(Name = "All")] NoFilter = 0,
-        [Display(Name = "By Open")] ByOpen,
-        [Display(Name = "By Work")] ByWork,
-        [Display(Name = "By Spent")] BySpent,
-        [Display(Name = "By Close")] ByClose
-    }
-    /// <summary>
-    /// Метод расширения для IpraListDto, для фильтрации.
-    /// </summary>
-    /// <param name="ipra">Объект IpraListDto</param>
-    /// <param name="filterBy">enum список фильтров IpraFilterBy</param>
-    public static class IpraListDtoFilter
-    {
-        public static IQueryable<IpraListDto> FilterIpraBy(this IQueryable<IpraListDto> ipra, IpraFilterBy filterBy,
-            string filterValue)
-        {
-            if (string.IsNullOrEmpty(filterValue))
-                return ipra;
-            switch (filterBy)
-            {
-                case IpraFilterBy.NoFilter:
-                    return ipra;
-                case IpraFilterBy.ByOpen:
-                    return ipra.Where(i => i.StatusId == 1);
-                case IpraFilterBy.ByWork:
-                    return ipra.Where(i => i.StatusId == 1 && i.Report.Count > 0);
-                case IpraFilterBy.BySpent:
-                    return ipra.Where(i => i.StatusId == 2);
-                case IpraFilterBy.ByClose:
-                    int[] ClosedId = [3, 4, 5];
-                    return ipra.Where(i => ClosedId.Contains(i.StatusId));
-            }
+    [Display(Name = "Все")] NoFilter = 0,
+    [Display(Name = "Открытые")] ByOpen,
+    [Display(Name = "В работе")] ByWork,
+    [Display(Name = "Отработанные")] BySpent,
+    [Display(Name = "Закрытые")] ByClose
+}
 
-            return ipra;
+public enum IpraFilterByEndless
+{
+    [Display(Name = "Все")] NoFilter = 0,
+    [Display(Name = "Срок истекает")] Expiring,
+    [Display(Name = "С датой оканчания")] WithEndDate,
+    [Display(Name = "Без даты окончания")] Indefinitely
+}
+
+
+public static class IpraListDtoFilter
+{
+    /// <summary>
+    /// Метод расширения для <see cref="IpraListDto"/>, для фильтрации по статусу.
+    /// </summary>
+    /// <param name="ipra">Объект <see cref="IpraListDto"/></param>
+    /// <param name="filterBy">enum список фильтров <see cref="IpraFilterByStatus"/> </param>
+    /// /// <returns>Отфильтрованный по статусу объект типа <see cref="IpraListDto"/></returns>
+    public static IQueryable<IpraListDto> FilterIpraByStatus(this IQueryable<IpraListDto> ipra,
+        IpraFilterByStatus filterBy)
+    {
+        switch (filterBy)
+        {
+            case IpraFilterByStatus.NoFilter:
+                return ipra;
+            case IpraFilterByStatus.ByOpen:
+                return ipra.Where(i => i.StatusId == 1);
+            case IpraFilterByStatus.ByWork:
+                return ipra.Where(i => i.StatusId == 1 && i.Report.Count > 0);
+            case IpraFilterByStatus.BySpent:
+                return ipra.Where(i => i.StatusId == 2);
+            case IpraFilterByStatus.ByClose:
+                int[] ClosedId = [3, 4, 5];
+                return ipra.Where(i => ClosedId.Contains(i.StatusId));
+            default:
+                throw new ArgumentOutOfRangeException(nameof(filterBy), filterBy, null);
         }
     }
-    
+    /// <summary>
+    /// Метод расширения для <see cref="IpraListDto"/>, для фильтрации по окончанию??.
+    /// </summary>
+    /// <param name="ipra">Объект <see cref="IpraListDto"/></param>
+    /// <param name="filterBy">enum список фильтров <see cref="IpraFilterByEndless"/> </param>
+    /// <returns>Отфильтрованный по окончанию?? объект типа <see cref="IpraListDto"/></returns>
+    public static IQueryable<IpraListDto> FilterIpraByEndless(this IQueryable<IpraListDto> ipra, IpraFilterByEndless filterBy)
+    {
+        switch (filterBy)
+        {
+            case IpraFilterByEndless.NoFilter:
+                return ipra;
+            case IpraFilterByEndless.Expiring:
+                return ipra;
+            case IpraFilterByEndless.WithEndDate:
+                return ipra;
+            case IpraFilterByEndless.Indefinitely:
+                return ipra;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(filterBy), filterBy, null);
+        }
+    }
 }
