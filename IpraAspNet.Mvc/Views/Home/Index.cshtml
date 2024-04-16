@@ -1,0 +1,31 @@
+﻿
+@using ServiceLayer.IpraService.QueryObject
+@model ServiceLayer.IpraService.IpraListCombinedDto
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+<form id="sort-filter-form" role="form">
+@Html.ActionLink("Без фильтра", "Index", new { filterBy = IpraFilterBy.NoFilter, filterValue = 0 })
+@Html.ActionLink("Открытые", "Index", new { filterBy = IpraFilterBy.ByOpen, filterValue = 1 })
+@Html.ActionLink(IpraFilterBy.ByWork.GetDisplayName(), "Index", new { filterBy = IpraFilterBy.ByWork, filterValue = 2 })
+@Html.ActionLink(IpraFilterBy.BySpent.GetDisplayName(), "Index", new { filterBy = IpraFilterBy.BySpent, filterValue = 3 })
+@Html.ActionLink(IpraFilterBy.ByClose.GetDisplayName(), "Index", new { filterBy = IpraFilterBy.ByClose, filterValue = 4 })
+
+<div class="col-sm-2">
+    <label>Page</label>
+    <div>
+        <input asp-for="SortFilterPageData.PageNum" name="PageNum"
+               class="form-control page-control-width page-num-input"
+               onchange="BookList.sendForm(this)">
+        <span class="num-pages-text">of @Model.SortFilterPageData.NumPages</span>
+    </div>
+    <input id="PrevCheckState" name="PrevCheckState" type="hidden" value=@Model.SortFilterPageData.PrevCheckState>
+</div>
+</form>
+<ul>
+    @foreach (var record in @Model.IpraList)
+    {
+        <li>@record.FirstName, @record.Number</li>
+    }
+</ul>
