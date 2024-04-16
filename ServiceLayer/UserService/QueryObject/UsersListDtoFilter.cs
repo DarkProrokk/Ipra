@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ServiceLayer.IpraService.QueryObject;
+using ServiceLayer.IpraService;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +10,10 @@ namespace ServiceLayer.UserService.QueryObject
 {
     public static class UsersListDtoFilter
     {
-        public static 
+        public static IQueryable<UsersListDto> FilterUsersBy(this IQueryable<UsersListDto> users, IpraFilterBy filterBy,
+            string filterValue)
+        {
+            return users;
+        }
     }
 }
