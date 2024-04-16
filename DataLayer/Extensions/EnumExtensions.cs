@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
 public static class EnumExtensions
@@ -11,10 +9,7 @@ public static class EnumExtensions
         if (memberInfo != null)
         {
             var displayAttribute = memberInfo.GetCustomAttribute<DisplayAttribute>();
-            if (displayAttribute != null)
-            {
-                return displayAttribute.GetName();
-            }
+            if (displayAttribute != null) return displayAttribute.GetName();
         }
 
         return value.ToString(); // Возвращаем значение enum, если атрибут Display не найден

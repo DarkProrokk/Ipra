@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer.Entities;
 
 [Table("PrognozResult")]
-public partial class PrognozResult
+public class PrognozResult
 {
-    [Key]
-    public int Id { get; set; }
+    [Key] public int Id { get; set; }
 
     public int? FuncRecovery { get; set; }
 
@@ -30,6 +26,5 @@ public partial class PrognozResult
 
     public int? Work { get; set; }
 
-    [InverseProperty("PR")]
-    public virtual ICollection<Ipra> Ipras { get; set; } = new List<Ipra>();
+    [InverseProperty("PR")] public virtual ICollection<Ipra> Ipras { get; set; } = new List<Ipra>();
 }

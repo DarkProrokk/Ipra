@@ -1,30 +1,35 @@
-﻿
-@using ServiceLayer.IpraService.QueryObject
-@model ServiceLayer.IpraService.IpraListCombinedDto
+﻿@model ServiceLayer.IpraService.IpraListCombinedDto
 
 @{
     ViewData["Title"] = "Home Page";
 }
 <form id="sort-filter-form" role="form">
-@Html.ActionLink("Без фильтра", "Index", new { filterBy = IpraFilterBy.NoFilter, filterValue = 0 })
-@Html.ActionLink("Открытые", "Index", new { filterBy = IpraFilterBy.ByOpen, filterValue = 1 })
-@Html.ActionLink(IpraFilterBy.ByWork.GetDisplayName(), "Index", new { filterBy = IpraFilterBy.ByWork, filterValue = 2 })
-@Html.ActionLink(IpraFilterBy.BySpent.GetDisplayName(), "Index", new { filterBy = IpraFilterBy.BySpent, filterValue = 3 })
-@Html.ActionLink(IpraFilterBy.ByClose.GetDisplayName(), "Index", new { filterBy = IpraFilterBy.ByClose, filterValue = 4 })
-
-<div class="col-sm-2">
+    <div class="col-sm-3">
+        <label>Фильтр по статусу</label>
+        <select asp-for="IpraSortFilterPageData.FilterByStatus" name="FilterByStatus"
+                asp-items="Html.GetEnumSelectList<ServiceLayer.IpraService.QueryObject.IpraFilterByStatus>()"
+                class="form-control sort-filter-width"></select>
+    </div>
+    <div class="col-sm-3">
+        <label>Фильтр по окончанию</label>
+        <select asp-for="IpraSortFilterPageData.FilterByEndless" name="FilterByEndless"
+                asp-items="Html.GetEnumSelectList<ServiceLayer.IpraService.QueryObject.IpraFilterByEndless>()"
+                class="form-control sort-filter-width"></select>
+    </div>
+    <div class="col-sm-1">
     <label>Page</label>
     <div>
-        <input asp-for="SortFilterPageData.PageNum" name="PageNum"
-               class="form-control page-control-width page-num-input"
-               onchange="BookList.sendForm(this)">
-        <span class="num-pages-text">of @Model.SortFilterPageData.NumPages</span>
+        <input asp-for="IpraSortFilterPageData.PageNum" name="PageNum"
+               class="form-control page-control-width page-num-input">
+        <span class="num-pages-text">of @Model.IpraSortFilterPageData.NumPages</span>
     </div>
-    <input id="PrevCheckState" name="PrevCheckState" type="hidden" value=@Model.SortFilterPageData.PrevCheckState>
-</div>
+    </div>
+    
+    @Html.Hidden("PrevCheckState", @Model.IpraSortFilterPageData.PrevCheckState)
+
 </form>
 <ul>
-    @foreach (var record in @Model.IpraList)
+    @foreach (var record in Model.IpraList)
     {
         <li>@record.FirstName, @record.Number</li>
     }

@@ -1,38 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer.Entities;
 
 [Table("Tasks")]
-public partial class Tasks
+public class Tasks
 {
-    [Key]
-    public int Id { get; set; }
+    [Key] public int Id { get; set; }
 
     public int FileId { get; set; }
 
     public int Status { get; set; }
 
-    [Column(TypeName = "datetime")]
-    public DateTime? CreatedTS { get; set; }
+    [Column(TypeName = "datetime")] public DateTime? CreatedTS { get; set; }
 
-    [Column(TypeName = "datetime")]
-    public DateTime? ModifiedTS { get; set; }
+    [Column(TypeName = "datetime")] public DateTime? ModifiedTS { get; set; }
 
-    [StringLength(50)]
-    public string? SurnameMse { get; set; }
+    [StringLength(50)] public string? SurnameMse { get; set; }
 
-    [StringLength(50)]
-    public string? NameMse { get; set; }
+    [StringLength(50)] public string? NameMse { get; set; }
 
-    [StringLength(50)]
-    public string? LastnameMse { get; set; }
+    [StringLength(50)] public string? LastnameMse { get; set; }
 
-    [StringLength(50)]
-    public string? SnilsMse { get; set; }
+    [StringLength(50)] public string? SnilsMse { get; set; }
 
     public string? Message { get; set; }
 
@@ -40,8 +30,7 @@ public partial class Tasks
 
     public int ModifiedUserId { get; set; }
 
-    [StringLength(36)]
-    public string? PatientGuidMse { get; set; }
+    [StringLength(36)] public string? PatientGuidMse { get; set; }
 
     public int? GroupTaskId { get; set; }
 

@@ -1,8 +1,8 @@
 using System.Diagnostics;
 using DataLayer.Context;
 using DataLayer.QueryObjects;
-using Microsoft.AspNetCore.Mvc;
 using IpraAspNet.Mvc.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ServiceLayer.IpraService;
 using ServiceLayer.IpraService.Concrete;
@@ -12,8 +12,7 @@ namespace IpraAspNet.Mvc.Controllers;
 
 public class HomeController(ILogger<HomeController> logger, IpraContext context) : Controller
 {
-    
-    public async Task<IActionResult> Index(SortFilterPageOptions<IpraFilterBy> options)
+    public async Task<IActionResult> Index(IpraSortFilterPageOptions options)
     {
         var listService = new ListIpraService(context);
         var ipraList = await listService.SortFilterPage(options).ToListAsync();
