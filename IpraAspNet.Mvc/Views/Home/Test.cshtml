@@ -1,0 +1,24 @@
+﻿@using ServiceLayer.IpraService
+@using ServiceLayer.IpraService.Models
+@model ServiceLayer.IpraService.IpraSortFilterPageOptions
+
+<form id="sort-filter-form" role="form">
+    <div class="col-sm-3">
+        <label>Фильтр по статусу</label>
+        <select asp-for="FilterByStatus" name="FilterByStatus"
+                asp-items="Html.GetEnumSelectList<ServiceLayer.IpraService.QueryObject.IpraFilterByStatus>()"
+                class="form-control sort-filter-width"
+                onchange="AjaxTableBuilder.sendForm(this)"></select>
+    </div>
+    <div class="col-sm-3">
+        <label>Фильтр по окончанию</label>
+        <select asp-for="FilterByEndless" name="FilterByEndless"
+                asp-items="Html.GetEnumSelectList<ServiceLayer.IpraService.QueryObject.IpraFilterByEndless>()"
+                class="form-control sort-filter-width"
+                onchange="AjaxTableBuilder.sendForm(this)"></select>
+    </div>
+    @Html.Hidden("PrevCheckState", @Model.PrevCheckState)
+
+</form>
+
+<table id="dataTable"></table>

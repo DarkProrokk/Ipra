@@ -1,4 +1,5 @@
-﻿@model ServiceLayer.IpraService.IpraListCombinedDto
+﻿@using ServiceLayer.IpraService
+@model ServiceLayer.IpraService.IpraListCombinedDto
 
 @{
     ViewData["Title"] = "Home Page";
@@ -8,14 +9,18 @@
         <label>Фильтр по статусу</label>
         <select asp-for="IpraSortFilterPageData.FilterByStatus" name="FilterByStatus"
                 asp-items="Html.GetEnumSelectList<ServiceLayer.IpraService.QueryObject.IpraFilterByStatus>()"
-                class="form-control sort-filter-width"></select>
+                class="form-control sort-filter-width"
+                onchange="IpraList.sendForm(this)"></select>
     </div>
+
     <div class="col-sm-3">
         <label>Фильтр по окончанию</label>
         <select asp-for="IpraSortFilterPageData.FilterByEndless" name="FilterByEndless"
                 asp-items="Html.GetEnumSelectList<ServiceLayer.IpraService.QueryObject.IpraFilterByEndless>()"
-                class="form-control sort-filter-width"></select>
+                class="form-control sort-filter-width"
+                onchange="IpraList.sendForm(this)"></select>
     </div>
+
     <div class="col-sm-1">
     <label>Page</label>
     <div>
@@ -28,9 +33,9 @@
     @Html.Hidden("PrevCheckState", @Model.IpraSortFilterPageData.PrevCheckState)
 
 </form>
-<ul>
-    @foreach (var record in Model.IpraList)
-    {
-        <li>@record.FirstName, @record.Number</li>
-    }
-</ul>
+
+@foreach (var record in Model.IpraList)
+{
+    <li>@record.FirstName, @record.Number, @record.Snils</li>
+}
+<h2>@Model.IpraSortFilterPageData.NumNotes</h2>
