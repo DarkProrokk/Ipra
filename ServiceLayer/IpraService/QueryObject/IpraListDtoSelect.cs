@@ -1,4 +1,5 @@
 ﻿using DataLayer.Entities;
+using ServiceLayer.IpraService.Models;
 
 namespace ServiceLayer.IpraService.QueryObject;
 
@@ -27,6 +28,23 @@ public static class IpraListDtoSelect
             EndDate = item.EndDate,
             Report = item.Reports,
             IsEndless = item.IsEndless,
+        });
+    }
+
+    public static IQueryable<IpraListViewModel> MapDtoToViewModel(this IQueryable<IpraListDto> ipra)
+    {
+        return ipra.Select(item => new IpraListViewModel
+        {
+            Number = item.Number,
+            FirstName = item.FirstName,
+            Surname = item.Surname,
+            Patronymic = item.Patronymic,
+            Snils = item.Snils,
+            Sector = item.Sector,
+            BirthDate = item.BirthDate,
+            MoShortName = item.MoShortName,
+            IssueDate = item.IssueDate,
+            EndDate = item.EndDate
         });
     }
 }
