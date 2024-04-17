@@ -2,6 +2,7 @@
 using IpraAspNet.Mvc.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using ServiceLayer.IpraService;
 using ServiceLayer.UserService;
 using ServiceLayer.UserService.Concrete;
