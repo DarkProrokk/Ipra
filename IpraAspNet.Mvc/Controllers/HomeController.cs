@@ -19,9 +19,11 @@ public class HomeController(ILogger<HomeController> logger, IpraContext context)
         return View(new IpraListCombinedDto(options, ipraList));
     }
 
-    public IActionResult Privacy()
+    public IActionResult Test()
     {
-        return View();
+        IpraSortFilterPageOptions options = new IpraSortFilterPageOptions();
+        options.SetupTestOfDto();
+        return View(options);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
