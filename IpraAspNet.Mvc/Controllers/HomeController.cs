@@ -1,12 +1,10 @@
-using System.Diagnostics;
 using DataLayer.Context;
-using DataLayer.QueryObjects;
 using IpraAspNet.Mvc.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ServiceLayer.IpraService;
 using ServiceLayer.IpraService.Concrete;
-using ServiceLayer.IpraService.QueryObject;
+using System.Diagnostics;
 
 namespace IpraAspNet.Mvc.Controllers;
 

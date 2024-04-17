@@ -10,8 +10,7 @@ namespace ServiceLayer.UserService.QueryObject
 {
     public static class UsersListDtoFilter
     {
-        public static IQueryable<UsersListDto> FilterUsersBy(this IQueryable<UsersListDto> users, IpraFilterBy filterBy,
-            string filterValue)
+        public static IQueryable<UsersListDto> FilterUsersBy(this IQueryable<UsersListDto> users)
         {
             return users;
         }
