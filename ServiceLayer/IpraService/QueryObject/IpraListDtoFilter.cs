@@ -63,9 +63,9 @@ public static class IpraListDtoFilter
             case IpraFilterByEndless.Expiring:
                 return ipra;
             case IpraFilterByEndless.WithEndDate:
-                return ipra;
+                return ipra.Where(s => !s.IsEndless);
             case IpraFilterByEndless.Indefinitely:
-                return ipra;
+                return ipra.Where(s => s.IsEndless == true);
             default:
                 throw new ArgumentOutOfRangeException(nameof(filterBy), filterBy, null);
         }

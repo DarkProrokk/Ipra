@@ -1,6 +1,7 @@
 ﻿using DataLayer.Context;
 using DataLayer.QueryObjects;
 using Microsoft.EntityFrameworkCore;
+using ServiceLayer.IpraService.Models;
 using ServiceLayer.IpraService.QueryObject;
 
 namespace ServiceLayer.IpraService.Concrete;
@@ -26,20 +27,22 @@ public class ListIpraService
     /// </summary>
     /// <param name="options">Параметры сортировки и фильтрации.</param>
     /// <returns>Отсортированный и отфильтрованный список IpraListDto, разбитый на страницы.</returns>
-    public IQueryable<IpraListDto> SortFilterPage(IpraSortFilterPageOptions options)
+    public IQueryable<IpraListViewModel> SortFilterPage(IpraSortFilterPageOptions options)
     {
         // Создаем запрос, который будет использоваться для сортировки и фильтрации данных.
-        IQueryable<IpraListDto> ipraQuery = _context.Ipras
+        IQueryable<IpraListViewModel> ipraQuery = _context.Ipras
             .AsNoTracking() // Отключаем отслеживание изменений объектов.
             .MapIpraToDto()
             .OrderBy(x => x.id)
             .FilterIpraByStatus(options.FilterByStatus) 
-            .FilterIpraByEndless(options.FilterByEndless); 
+            .FilterIpraByEndless(options.FilterByEndless)
+            .MapDtoToViewModel(); 
 
         // Устанавливаем дополнительные параметры для Dto.
         options.SetupRestOfDto(ipraQuery);
 
+        var result = ipraQuery.Page(options.PageNum - 1, options.PageSize);
         // Возвращаем результат запроса, разбитый на страницы.
-        return ipraQuery.Page(options.PageNum - 1, options.PageSize);
+        return result;
     }
 }
