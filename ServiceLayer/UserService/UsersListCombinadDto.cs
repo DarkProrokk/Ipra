@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace ServiceLayer.UserService
 {
-    public class UsersListCombinadDto(SortFilterPageOptions<IpraFilterBy> sortFilterPageData, IEnumerable<UsersListDto> usersList)
+    public class UsersListCombinadDto(SortFilterPageOptions sortFilterPageData, IEnumerable<UsersListDto> usersList)
     {
-        public SortFilterPageOptions<IpraFilterBy> SortFilterPageData { get; private set; } = sortFilterPageData;
+        public SortFilterPageOptions SortFilterPageData { get; private set; } = sortFilterPageData;
 
         public IEnumerable<UsersListDto> UsersList { get; private set; } = usersList;
     }
