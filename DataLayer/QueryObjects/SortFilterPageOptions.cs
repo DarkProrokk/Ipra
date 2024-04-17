@@ -27,6 +27,8 @@ public class SortFilterPageOptions
     ///    Количество страниц
     /// </summary>
     public int NumPages { get; private set; }
+    
+    public int NumNotes { get; private set; }
 
     /// <summary>
     ///     Сохраняет состояние ключевых частей частей SortFilterPage
@@ -41,8 +43,10 @@ public class SortFilterPageOptions
     /// <param name="query"></param>
     public void SetupRestOfDto<T>(IQueryable<T> query)
     {
+        NumNotes = query.Count();
+
         NumPages = (int)Math.Ceiling(
-            (double)query.Count() / PageSize);
+            (double)NumNotes / PageSize);
         PageNum = Math.Min(
             Math.Max(1, PageNum), NumPages);
 
@@ -52,7 +56,14 @@ public class SortFilterPageOptions
 
         PrevCheckState = newCheckState;
     }
+    public void SetupTestOfDto()
+    {
+        var newCheckState = GenerateCheckState();
+        if (PrevCheckState != newCheckState)
+            PageNum = 1;
 
+        PrevCheckState = newCheckState;
+    }
     protected virtual string GenerateCheckState()
     {
         return $"{PageSize},{NumPages}";
