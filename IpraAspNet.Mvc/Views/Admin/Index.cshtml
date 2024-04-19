@@ -11,28 +11,9 @@
         <button onclick="filterData()">Применить фильтр</button>
     </p>
 
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>Фамилия</th>
-            <th>Имя</th>
-            <th>Отчество</th>
-        </tr>
-        @foreach (var item in Model.UsersList)
-        {
-            <tr>
-                <td>@item.UserName</td>
-                <td>@item.Surname</td>
-                <td>@item.Name</td>
-                <td>@item.Patronymic</td>
-            </tr>
-        }
-    </table>
+    
+    <table id="userTable" class="display" style="width:100%"></table>
 
-    <script>
-        function filterData() {
-            var searchString = document.getElementById('searchString').value;
-            window.location.href = '@Url.Action("Index")?searchString=' + searchString;
-        }
-    </script>
 </body>
+
+

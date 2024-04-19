@@ -1,5 +1,6 @@
 using DataLayer.Context;
 using Microsoft.EntityFrameworkCore;
+using ServiceLayer.UserService.Concrete;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,9 @@ builder.Configuration.AddJsonFile("appsettings.Development.json");
 
 builder.Services.AddDbContext<IpraContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresConnection")));
+
+// Объявление сервисов
+builder.Services.AddScoped<IListUsersService, ListUsersService>();
 
 var app = builder.Build();
 
