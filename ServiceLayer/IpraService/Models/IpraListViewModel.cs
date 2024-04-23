@@ -14,6 +14,6 @@ public class IpraListViewModel
     public string? Sector { get; set; }
     public string? BirthDate { get; set; }
     public string? MoShortName { get; set; }
-    public DateOnly? IssueDate { get; set; }
+    public DateOnly? StartDate { get; set; }
     public DateOnly? EndDate { get; set; }
 }

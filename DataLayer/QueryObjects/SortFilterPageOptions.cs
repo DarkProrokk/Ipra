@@ -51,8 +51,8 @@ public class SortFilterPageOptions
             Math.Max(1, PageNum), NumPages);
 
         var newCheckState = GenerateCheckState();
-        if (PrevCheckState != newCheckState)
-            PageNum = 1;
+        //if (PrevCheckState != newCheckState)
+        //    PageNum = 1;
 
         PrevCheckState = newCheckState;
     }
