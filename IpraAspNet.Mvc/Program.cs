@@ -1,5 +1,8 @@
 using DataLayer.Context;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using ServiceLayer.AuthentificationService;
+using ServiceLayer.UserService.Abstract;
 using Microsoft.OpenApi.Models;
 using ServiceLayer.UserService.Concrete;
 
@@ -13,12 +16,20 @@ builder.Configuration.AddJsonFile("appsettings.Development.json");
 
 builder.Services.AddDbContext<IpraContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresConnection")));
+
+// ���������� ��������
+builder.Services.AddScoped<IUserService, UserService>();
+
+//������ ����������� Ldap
+builder.Services.Configure<LdapConfig>(builder.Configuration.GetSection("ldap"));
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Ipra", Version = "v1" });
 });
 // Îáúÿâëåíèå ñåðâèñîâ
 builder.Services.AddScoped<IListUsersService, ListUsersService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

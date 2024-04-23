@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace ServiceLayer.UserService.QueryObject
+namespace ServiceLayer.UserService.Helpers
 {
-    public static class UsersListDtoFilter
+    public static class DataFilter
     {
         public static IQueryable<UsersListDto> FilterUsersBySearchString(this IQueryable<UsersListDto> users, string? searchString)
         {
-            if(searchString is null)
+            if (searchString is null)
                 return users;
 
             // "\W" Это метасимвол, который соответствует любому символу, который не является буквой, цифрой или знаком подчеркивания
@@ -27,13 +27,13 @@ namespace ServiceLayer.UserService.QueryObject
             {
                 string tempWord = word.ToLower();
                 filteredUsersData = filteredUsersData.Where(u =>
-                    (u.UserName != null && u.UserName.ToLower().Contains(tempWord)) ||
-                    (u.Name != null && u.Name.ToLower().Contains(tempWord)) ||
-                    (u.Surname != null && u.Surname.ToLower().Contains(tempWord)) ||
-                    (u.Patronymic != null && u.Patronymic.ToLower().Contains(tempWord)) ||
-                    (u.Post != null && u.Post.ToLower().Contains(tempWord)) ||
-                    (u.UserMOUsers.Any(mo => mo.MO != null && mo.MO.Shortname.ToLower().Contains(tempWord))) ||
-                    (u.UserRoleUsers.Any(role => role.Role != null && role.Role.RoleDescription.ToLower().Contains(tempWord)))
+                    u.UserName != null && u.UserName.ToLower().Contains(tempWord) ||
+                    u.Name != null && u.Name.ToLower().Contains(tempWord) ||
+                    u.Surname != null && u.Surname.ToLower().Contains(tempWord) ||
+                    u.Patronymic != null && u.Patronymic.ToLower().Contains(tempWord) ||
+                    u.Post != null && u.Post.ToLower().Contains(tempWord) ||
+                    u.UserMOUsers.Any(mo => mo.MO != null && mo.MO.Shortname.ToLower().Contains(tempWord)) ||
+                    u.UserRoleUsers.Any(role => role.Role != null && role.Role.RoleDescription.ToLower().Contains(tempWord))
                 );
             }
 
