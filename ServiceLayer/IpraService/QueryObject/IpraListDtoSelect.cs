@@ -24,7 +24,7 @@ public static class IpraListDtoSelect
             BirthDate = item.PatientBirthdayMse,
             MoShortName = item.Mo!.Shortname,
             StatusId = item.StatusId,
-            IssueDate = item.IssueDate,
+            StartDate = item.IssueDate,
             EndDate = item.EndDate,
             Report = item.Reports,
             IsEndless = item.IsEndless,
@@ -43,7 +43,7 @@ public static class IpraListDtoSelect
             Sector = item.Sector,
             BirthDate = item.BirthDate,
             MoShortName = item.MoShortName,
-            IssueDate = item.IssueDate,
+            StartDate = item.StartDate,
             EndDate = item.EndDate
         });
     }

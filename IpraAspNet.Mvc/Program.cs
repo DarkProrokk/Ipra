@@ -1,6 +1,8 @@
 using DataLayer.Context;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using ServiceLayer.UserService.Concrete;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,10 +13,12 @@ builder.Configuration.AddJsonFile("appsettings.Development.json");
 
 builder.Services.AddDbContext<IpraContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresConnection")));
-
-// Îáúÿâëåíèå ñåðâèñîâ
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Ipra", Version = "v1" });
+});
+// ÃŽÃ¡ÃºÃ¿Ã¢Ã«Ã¥Ã­Ã¨Ã¥ Ã±Ã¥Ã°Ã¢Ã¨Ã±Ã®Ã¢
 builder.Services.AddScoped<IListUsersService, ListUsersService>();
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -29,6 +33,11 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSwagger();
+app.UseSwaggerUI(options =>
+{
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+});
 
 app.UseAuthorization();
 
