@@ -1,7 +1,10 @@
 ﻿using DataLayer.Context;
+using DataLayer.Entities;
 using DataLayer.QueryObjects;
 using Microsoft.EntityFrameworkCore;
 using ServiceLayer.IpraService;
+using ServiceLayer.UserService.Interface;
+using ServiceLayer.UserService.Helpers;
 using ServiceLayer.UserService.QueryObject;
 using System;
 using System.Collections.Generic;
@@ -14,7 +17,7 @@ namespace ServiceLayer.UserService.Concrete
     /// <summary>
     /// Класс ListIpraService предоставляет функционал для сортировки, фильтрации и постраничного вывода данных IpraListDto.
     /// </summary>
-    public class ListUsersService : IListUsersService
+    public class UserService : IUserService
     {
         private readonly IpraContext _context;
 
@@ -22,17 +25,17 @@ namespace ServiceLayer.UserService.Concrete
         /// Конструктор класса ListIpraService.
         /// </summary>
         /// <param name="context">Экземпляр контекста IpraContext.</param>
-        public ListUsersService(IpraContext context)
+        public UserService(IpraContext context)
         {
             _context = context;
         }
 
         /// <summary>
-        /// Метод SortFilterPage возвращает отсортированный и отфильтрованный список UsersListDto, разбитый на страницы.
+        /// Возвращает отсортированный и отфильтрованный список UsersListDto, разбитый на страницы.
         /// </summary>
         /// <param name="options">Параметры сортировки и фильтрации.</param>
         /// <returns>Отсортированный и отфильтрованный список UsersListDto, разбитый на страницы.</returns>
-        public IQueryable<UsersListDto> SortFilterPage(UsersSortFilterPageOptions options)
+        public IQueryable<UsersListDto> GetSortedFilteredPage(UsersSortFilterPageOptions options)
         {
             // Создаем запрос, который будет использоваться для сортировки и фильтрации данных.
             IQueryable<UsersListDto> usersQuery = _context.Users

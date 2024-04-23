@@ -1,14 +1,8 @@
 ﻿using DataLayer.Entities;
 using Microsoft.Extensions.Options;
-using ServiceLayer.UserService.Abstract;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+using ServiceLayer.UserService.Interface;
 using System.DirectoryServices.Protocols;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ServiceLayer.AuthentificationService.QueryObject
 {
