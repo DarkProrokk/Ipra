@@ -5,7 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using ServiceLayer.IpraService;
 using ServiceLayer.UserService;
-using ServiceLayer.UserService.Concrete;
+using ServiceLayer.UserService.Abstract;
+using ServiceLayer.UserService.Helpers;
 using System.Diagnostics;
 
 namespace IpraAspNet.Mvc.Controllers
@@ -13,8 +14,8 @@ namespace IpraAspNet.Mvc.Controllers
     public class AdminController : Controller
     {
         private readonly ILogger<AdminController> _logger;
-        private readonly IListUsersService _userService;
-        public AdminController(ILogger<AdminController> logger, IListUsersService userService)
+        private readonly IUserService _userService;
+        public AdminController(ILogger<AdminController> logger, IUserService userService)
         {
             _logger = logger;
             _userService = userService;
@@ -31,17 +32,19 @@ namespace IpraAspNet.Mvc.Controllers
             var columnsMapping = new Dictionary<string, string>
             {
                 { "id", "id" },
-                { "userName", "логин" },
+                { "userName", "Логин" },
                 { "userRoleUsers", "Роли" },
                 { "surname", "Фамилия" },
                 { "name", "Имя" },
                 { "patronymic", "Отчество" },
                 { "post", "Должность" },
                 { "userMOUsers", "МО" },
-                
             };
-            var usersList = await _userService.SortFilterPage(options).ToListAsync();
-            return new JsonResult(new { data = new UsersListCombinedDto(options, usersList), columnsMapping });
+
+            var usersList = await _userService.GetSortedFilteredPage(options).ToListAsync();
+
+            //return new JsonResult(new { data = new UsersListCombinedDto(options, usersList), columnsMapping });
+            return new JsonResult(new { data = usersList, columnsMapping = columnsMapping });
         }
 
 

@@ -1,5 +1,8 @@
 using DataLayer.Context;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using ServiceLayer.AuthentificationService;
+using ServiceLayer.UserService.Abstract;
 using ServiceLayer.UserService.Concrete;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +16,10 @@ builder.Services.AddDbContext<IpraContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresConnection")));
 
 // Объявление сервисов
-builder.Services.AddScoped<IListUsersService, ListUsersService>();
+builder.Services.AddScoped<IUserService, UserService>();
+
+//Сервис авторизации Ldap
+builder.Services.Configure<LdapConfig>(builder.Configuration.GetSection("ldap"));
 
 var app = builder.Build();
 
