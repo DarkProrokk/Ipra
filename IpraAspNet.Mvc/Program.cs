@@ -3,8 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using ServiceLayer.AuthentificationService;
 using ServiceLayer.AuthorizeService.Abstract;
 using ServiceLayer.AuthorizeService.Concrete;
-using ServiceLayer.UserService.Abstract;
 using ServiceLayer.UserService.Concrete;
+using ServiceLayer.UserService.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 

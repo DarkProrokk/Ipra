@@ -2,25 +2,24 @@
 using ServiceLayer.AuthentificationService;
 using ServiceLayer.AuthentificationService.QueryObject;
 using ServiceLayer.AuthorizeService.Abstract;
-using ServiceLayer.UserService.Abstract;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.DirectoryServices.Protocols;
-using System.Linq;
-using System.Net;
-using System.Net.WebSockets;
-using System.Text;
-using System.Threading.Tasks;
+using ServiceLayer.UserService.Interface;
 
 namespace ServiceLayer.AuthorizeService.Concrete
 {
     public class LdapAuthentificationService : ILdapAuthentificationService
     {
+        private readonly LdapConfig _ldapConfig;
+        private IUserService _userRepository;
+
+        public LdapAuthentificationService(IOptions<LdapConfig> config, IUserService userService)
+        {
+            _ldapConfig = config.Value;
+            _userRepository = userService;
+        }
+
         public bool CheckAuthenticate(AuthModel person)
         {
-            var ds = new ActiveDirectoryUser();
-            var sd = ds.GetUserFromAD(person.Login, person.Password);
+            var sd = person.GetUserFromAD(_ldapConfig, _userRepository);
             return false;
         }
     }

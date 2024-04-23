@@ -6,33 +6,24 @@ using System.Net;
 
 namespace ServiceLayer.AuthentificationService.QueryObject
 {
-    public class ActiveDirectoryUser
+    public static class ActiveDirectoryUser
     {
         private const string MemberOfAttribute = "memberOf";
         private const string DisplayNameAttribute = "displayName";
         private const string SAMAccountNameAttribute = "sAMAccountName";
 
-        private readonly LdapConfig _ldapConfig;
-        private IUserService _userRepository;
-
-        public ActiveDirectoryUser(IOptions<LdapConfig> config, IUserService userService)
-        {
-            _ldapConfig = config.Value;
-            _userRepository = userService;
-        }
-
-        public User GetUserFromAD(string login, string password)
+        public static User GetUserFromAD(this AuthModel person, LdapConfig ldapConfig, IUserService userRepository)
         {
             try
             {
-                using (LdapConnection connection = new LdapConnection(new LdapDirectoryIdentifier(_ldapConfig.Url)))
+                using (LdapConnection connection = new LdapConnection(new LdapDirectoryIdentifier(ldapConfig.Url)))
                 {
-                    connection.Bind(new NetworkCredential(login, password));
+                    connection.Bind(new NetworkCredential(person.Login, person.Password));
 
-                    var searchFilter = string.Format(_ldapConfig.SearchFilter, login);
+                    var searchFilter = string.Format(ldapConfig.SearchFilter, person.Login);
 
                     SearchRequest searchRequest = new SearchRequest(
-                    _ldapConfig.SearchBase,
+                    ldapConfig.SearchBase,
                     searchFilter,
                     SearchScope.Subtree,
                     new[] { MemberOfAttribute, DisplayNameAttribute, SAMAccountNameAttribute, "company" });
