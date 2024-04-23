@@ -3,6 +3,8 @@ using IpraAspNet.Mvc.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using ServiceLayer.AuthentificationService;
+using ServiceLayer.AuthorizeService.Abstract;
 using ServiceLayer.IpraService;
 using ServiceLayer.UserService;
 using ServiceLayer.UserService.Concrete;
@@ -13,21 +15,26 @@ namespace IpraAspNet.Mvc.Controllers
     public class AdminController : Controller
     {
         private readonly ILogger<AdminController> _logger;
-        private readonly IListUsersService _userService;
-        public AdminController(ILogger<AdminController> logger, IListUsersService userService)
+        private readonly IUserService _userService;
+        private readonly ILdapAuthentificationService _ldapService;
+
+        public AdminController(ILogger<AdminController> logger, IUserService userService, ILdapAuthentificationService ldapService)
         {
             _logger = logger;
             _userService = userService;
+            _ldapService = ldapService;
         }
 
         public IActionResult Index(UsersSortFilterPageOptions options)
         {
+            _ldapService.CheckAuthenticate(new AuthModel { Login = "GolikovVI", Password = "FBs2iY86At35"});
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> GetUserList(UsersSortFilterPageOptions options)
         {
+
             var columnsMapping = new Dictionary<string, string>
             {
                 { "id", "id" },

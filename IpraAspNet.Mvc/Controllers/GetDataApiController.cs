@@ -13,7 +13,6 @@ namespace IpraAspNet.Mvc.Controllers
         [HttpPost]
         public async Task<IActionResult> GetDataTest(IpraSortFilterPageOptions formData)
         {
-            
             var ipraService = new ListIpraService(context);
             var ipraList = await ipraService.SortFilterPage(formData).ToListAsync();
             return Json(new IpraListCombinedDto(formData, ipraList));

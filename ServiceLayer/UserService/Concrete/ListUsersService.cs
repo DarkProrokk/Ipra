@@ -47,5 +47,20 @@ namespace ServiceLayer.UserService.Concrete
             // Возвращаем результат запроса, разбитый на страницы.
             return usersQuery.Page(options.PageNum - 1, options.PageSize);
         }
+
+        public UserDto GetUserForUpdatePage(int userId)
+        {
+            return _context.Users
+                .AsNoTracking()
+                .MapUserToDtoUpdate()
+                .FirstOrDefault(u => u.Id == userId);
+        }
+
+        public User GetUser(string username)
+        {
+            return _context.Users
+                .AsNoTracking()
+                .FirstOrDefault(u => u.UserName.ToLower() == username.ToLower());
+        }
     }
 }
