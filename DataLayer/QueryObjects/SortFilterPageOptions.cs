@@ -30,6 +30,10 @@ public class SortFilterPageOptions
     
     public int NumNotes { get; private set; }
 
+    public string? FilterBy { get; set; }
+
+    public string? FilterValue { get; set; }
+
     /// <summary>
     ///     Сохраняет состояние ключевых частей частей SortFilterPage
     /// </summary>
