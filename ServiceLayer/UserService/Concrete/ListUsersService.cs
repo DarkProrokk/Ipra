@@ -14,7 +14,7 @@ namespace ServiceLayer.UserService.Concrete
     /// <summary>
     /// Класс ListIpraService предоставляет функционал для сортировки, фильтрации и постраничного вывода данных IpraListDto.
     /// </summary>
-    public class ListUsersService
+    public class ListUsersService : IListUsersService
     {
         private readonly IpraContext _context;
 
@@ -38,6 +38,7 @@ namespace ServiceLayer.UserService.Concrete
             IQueryable<UsersListDto> usersQuery = _context.Users
                 .AsNoTracking() // Отключаем отслеживание изменений объектов.
                 .MapUsersToDto()
+                .FilterUsersBySearchString(options.searchString)
                 .OrderBy(x => x.Id);
 
             // Устанавливаем дополнительные параметры для Dto.

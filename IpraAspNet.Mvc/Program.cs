@@ -1,6 +1,8 @@
 using DataLayer.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using ServiceLayer.UserService.Concrete;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,8 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Ipra", Version = "v1" });
 });
+// Îáúÿâëåíèå ñåðâèñîâ
+builder.Services.AddScoped<IListUsersService, ListUsersService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
