@@ -3,7 +3,10 @@ using DataLayer.Entities;
 using DataLayer.QueryObjects;
 using Microsoft.EntityFrameworkCore;
 using ServiceLayer.IpraService;
-using ServiceLayer.UserService.Abstract;
+
+using ServiceLayer.UserService.Interface;
+using ServiceLayer.UserService.Helpers;
+using ServiceLayer.UserService.QueryObject;
 using ServiceLayer.UserService.Helpers;
 using System;
 using System.Collections.Generic;
@@ -29,12 +32,17 @@ namespace ServiceLayer.UserService.Concrete
             _context = context;
         }
 
+        /// <summary>
+        /// Возвращает отсортированный и отфильтрованный список UsersListDto, разбитый на страницы.
+        /// </summary>
+        /// <param name="options">Параметры сортировки и фильтрации.</param>
+        /// <returns>Отсортированный и отфильтрованный список UsersListDto, разбитый на страницы.</returns>
         public IQueryable<UsersListDto> GetSortedFilteredPage(UsersSortFilterPageOptions options)
         {
             // Создаем запрос, который будет использоваться для сортировки и фильтрации данных.
             IQueryable<UsersListDto> usersQuery = _context.Users
                 .AsNoTracking() // Отключаем отслеживание изменений объектов.
-                .MapUsersToDtoList()
+                .MapUsersToDto()
                 .FilterUsersBySearchString(options.searchString)
                 .OrderBy(x => x.Id);
 
@@ -52,5 +60,13 @@ namespace ServiceLayer.UserService.Concrete
                 .MapUserToDtoUpdate()
                 .FirstOrDefault(u => u.Id == userId);
         }
+
+        public User GetUser(string username)
+        {
+            return _context.Users
+                .AsNoTracking()
+                .FirstOrDefault(u => u.UserName.ToLower() == username.ToLower());
+        }
+
     }
 }

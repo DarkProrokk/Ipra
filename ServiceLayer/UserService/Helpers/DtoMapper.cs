@@ -40,8 +40,6 @@ namespace ServiceLayer.UserService.Helpers
         public static IQueryable<UserDto> MapUserToDtoUpdate(this IQueryable<User> users) 
         {
             return users
-                .Include(u => u.UserMOUsers)
-                .Include(u => u.UserRoleUsers)
                 .Select(item => new UserDto
                 {
                     Id = item.UserId,
