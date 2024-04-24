@@ -42,7 +42,7 @@ namespace ServiceLayer.UserService.Concrete
             // Создаем запрос, который будет использоваться для сортировки и фильтрации данных.
             IQueryable<UsersListDto> usersQuery = _context.Users
                 .AsNoTracking() // Отключаем отслеживание изменений объектов.
-                .MapUsersToDto()
+                .MapUsersToDtoList()
                 .FilterUsersBySearchString(options.searchString)
                 .OrderBy(x => x.Id);
 

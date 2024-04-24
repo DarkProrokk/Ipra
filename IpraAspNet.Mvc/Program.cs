@@ -1,14 +1,9 @@
 using DataLayer.Context;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using ServiceLayer.AuthentificationService;
-
-using ServiceLayer.AuthorizeService.Abstract;
-using ServiceLayer.AuthorizeService.Concrete;
-
-using ServiceLayer.UserService.Abstract;
 using Microsoft.OpenApi.Models;
-
+using ServiceLayer.AuthentificationService;
+using ServiceLayer.AuthorizeService.Concrete;
+using ServiceLayer.AuthorizeService.Interface;
 using ServiceLayer.UserService.Concrete;
 using ServiceLayer.UserService.Interface;
 
@@ -26,7 +21,7 @@ builder.Services.AddDbContext<IpraContext>(options =>
 //Ldap
 builder.Services.Configure<LdapConfig>(builder.Configuration.GetSection("ldap"));
 
-// ���������� ��������
+//Объявление сервисов
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddTransient<ILdapAuthentificationService, LdapAuthentificationService>();
 

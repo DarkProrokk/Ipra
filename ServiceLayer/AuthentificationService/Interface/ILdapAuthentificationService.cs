@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ServiceLayer.AuthorizeService.Abstract
+namespace ServiceLayer.AuthorizeService.Interface
 {
     public interface ILdapAuthentificationService
     {

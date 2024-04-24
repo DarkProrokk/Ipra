@@ -2,14 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ServiceLayer.AuthentificationService;
-using ServiceLayer.AuthorizeService.Abstract;
+using ServiceLayer.AuthorizeService.Interface;
 using ServiceLayer.IpraService;
 using ServiceLayer.UserService;
-
 using ServiceLayer.UserService.Interface;
-
-using ServiceLayer.UserService.Abstract;
-using ServiceLayer.UserService.Helpers;
 
 using System.Diagnostics;
 
@@ -51,8 +47,8 @@ namespace IpraAspNet.Mvc.Controllers
             };
             
             var usersList = await _userService.GetSortedFilteredPage(options).ToListAsync();
-            //return new JsonResult(new { data = new UsersListCombinedDto(options, usersList), columnsMapping });
-            return new JsonResult(new { data = usersList, columnsMapping = columnsMapping });
+            return new JsonResult(new { data = new UsersListCombinedDto(options, usersList), columnsMapping });
+            //return new JsonResult(new { data = usersList, columnsMapping = columnsMapping });
         }
 
 

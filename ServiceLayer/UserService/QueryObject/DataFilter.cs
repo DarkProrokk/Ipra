@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace ServiceLayer.UserService.Helpers
+namespace ServiceLayer.UserService.QueryObject
 {
     public static class DataFilter
     {

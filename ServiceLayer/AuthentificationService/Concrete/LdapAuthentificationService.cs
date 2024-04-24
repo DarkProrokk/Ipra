@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using ServiceLayer.AuthentificationService;
 using ServiceLayer.AuthentificationService.QueryObject;
-using ServiceLayer.AuthorizeService.Abstract;
+using ServiceLayer.AuthorizeService.Interface;
 using ServiceLayer.UserService.Interface;
 
 namespace ServiceLayer.AuthorizeService.Concrete
