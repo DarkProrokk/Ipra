@@ -3,9 +3,11 @@ using DataLayer.Entities;
 using DataLayer.QueryObjects;
 using Microsoft.EntityFrameworkCore;
 using ServiceLayer.IpraService;
+
 using ServiceLayer.UserService.Interface;
 using ServiceLayer.UserService.Helpers;
 using ServiceLayer.UserService.QueryObject;
+using ServiceLayer.UserService.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -65,5 +67,6 @@ namespace ServiceLayer.UserService.Concrete
                 .AsNoTracking()
                 .FirstOrDefault(u => u.UserName.ToLower() == username.ToLower());
         }
+
     }
 }

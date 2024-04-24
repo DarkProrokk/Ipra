@@ -26,4 +26,6 @@ namespace ServiceLayer.UserService
         public bool? IsLocal { get; set; }
         public string? Password { get; set; }
     }
+
 }
+

@@ -10,21 +10,31 @@ public class IpraListCombinedDto(
     IpraSortFilterPageOptions sortFilterPageData,
     IEnumerable<IpraListViewModel> ipraList)
 {
-    public IpraSortFilterPageOptions IpraSortFilterPageData { get; private set; } = sortFilterPageData;
+    public IpraSortFilterPageOptions Options { get; private set; } = sortFilterPageData;
 
-    public IEnumerable<IpraListViewModel> IpraList { get; private set; } = ipraList;
+    public IEnumerable<IpraListViewModel> Data { get; private set; } = ipraList;
 
-    public List<string> HeadersList { get; private set; } = GetHeaders();
+    /// <summary>
+    /// Используется для построения таблицы в <seealso cref="https://127.0.0.1:5001/Home/Test"/>
+    /// </summary>
+    public Dictionary<string, string> HeadersList { get; private set; } = GetHeaders();
 
 
-    public static List<string> GetHeaders()
+    public static Dictionary<string, string> GetHeaders()
     {
-        List<string> headers = new List<string>();
-        foreach (PropertyInfo property in typeof(IpraListViewModel).GetProperties())
+        Dictionary<string, string> headers = new Dictionary<string, string>()
         {
-            headers.Add(property.Name);
-        }
-
+            { "Номер", "Number" },
+            { "Имя", "FirstName" },
+            { "Фамилия", "Surname" },
+            { "Отчество", "Patronymic" },
+            { "СНИЛС", "Snils" },
+            { "Участок", "Sector" },
+            { "Дата Рождения", "BirthDate" },
+            { "Краткое наименование", "MoShortName" },
+            { "Дата начала", "StartDate" },
+            { "Дата окончания", "EndDate" }
+        };
         return headers;
     }
 }

@@ -1,10 +1,17 @@
 using DataLayer.Context;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using ServiceLayer.AuthentificationService;
+
 using ServiceLayer.AuthorizeService.Abstract;
 using ServiceLayer.AuthorizeService.Concrete;
+
+using ServiceLayer.UserService.Abstract;
+using Microsoft.OpenApi.Models;
+
 using ServiceLayer.UserService.Concrete;
 using ServiceLayer.UserService.Interface;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,11 +26,15 @@ builder.Services.AddDbContext<IpraContext>(options =>
 //Ldap
 builder.Services.Configure<LdapConfig>(builder.Configuration.GetSection("ldap"));
 
-// Объявление сервисов
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddTransient<ILdapAuthentificationService, LdapAuthentificationService>();
 
 
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Ipra", Version = "v1" });
+});
 
 var app = builder.Build();
 
@@ -39,6 +50,11 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSwagger();
+app.UseSwaggerUI(options =>
+{
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+});
 
 app.UseAuthorization();
 
