@@ -5,15 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ServiceLayer.AuthorizeService.Abstract
+namespace ServiceLayer.AuthorizeService.Interface
 {
     public interface ILdapAuthentificationService
     {
         /// <summary>
-        /// Проверяет пользователя в AD, устанавливает куки.
+        /// Проверяет пользователя в AD.
         /// </summary>
         /// <param name="person"></param>
-        /// <returns></returns>
-        public bool CheckAuthenticate(AuthModel person);
+        /// <returns>Логин пользователя из AD</returns>
+        public string GetAdUserLogin(AuthorizationModel person);
     }
 }

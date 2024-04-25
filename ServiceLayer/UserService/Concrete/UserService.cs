@@ -42,7 +42,7 @@ namespace ServiceLayer.UserService.Concrete
             // Создаем запрос, который будет использоваться для сортировки и фильтрации данных.
             IQueryable<UsersListDto> usersQuery = _context.Users
                 .AsNoTracking() // Отключаем отслеживание изменений объектов.
-                .MapUsersToDto()
+                .MapUsersToDtoList()
                 .FilterUsersBySearchString(options.searchString)
                 .OrderBy(x => x.Id);
 
@@ -53,7 +53,7 @@ namespace ServiceLayer.UserService.Concrete
             return usersQuery.Page(options.PageNum - 1, options.PageSize);
         }
 
-        public UserDto GetUserForUpdatePage(int userId)
+        public UserDto GetUserDto(int userId)
         {
             return _context.Users
                 .AsNoTracking()
@@ -61,11 +61,18 @@ namespace ServiceLayer.UserService.Concrete
                 .FirstOrDefault(u => u.Id == userId);
         }
 
-        public User GetUser(string username)
+        public async Task<User> GetUserAsync(string username)
         {
-            return _context.Users
+            return await _context.Users
                 .AsNoTracking()
-                .FirstOrDefault(u => u.UserName.ToLower() == username.ToLower());
+                .Include(x => x.UserRoleUsers)
+                .ThenInclude(ur => ur.Role)
+                .FirstOrDefaultAsync(u => u.UserName.ToLower() == username.ToLower());
+        }
+
+        public async Task<bool> IsExistAsync(string username)
+        {
+            return await _context.Users.FirstOrDefaultAsync(x => x.UserName.ToLower() == username.ToLower()) != null;
         }
 
     }
