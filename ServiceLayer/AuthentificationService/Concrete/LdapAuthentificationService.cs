@@ -1,26 +1,48 @@
-﻿using Microsoft.Extensions.Options;
+﻿using DataLayer.Entities;
+using Microsoft.Extensions.Options;
 using ServiceLayer.AuthentificationService;
-using ServiceLayer.AuthentificationService.QueryObject;
 using ServiceLayer.AuthorizeService.Interface;
 using ServiceLayer.UserService.Interface;
+using System.DirectoryServices.Protocols;
+using System.Net;
 
 namespace ServiceLayer.AuthorizeService.Concrete
 {
     public class LdapAuthentificationService : ILdapAuthentificationService
     {
-        private readonly LdapConfig _ldapConfig;
-        private IUserService _userRepository;
+        private const string MemberOfAttribute = "memberOf";
+        private const string DisplayNameAttribute = "displayName";
+        private const string SAMAccountNameAttribute = "sAMAccountName";
 
-        public LdapAuthentificationService(IOptions<LdapConfig> config, IUserService userService)
+        private readonly LdapConfig _ldapConfig;
+
+        public LdapAuthentificationService(IOptions<LdapConfig> config)
         {
             _ldapConfig = config.Value;
-            _userRepository = userService;
         }
 
-        public bool CheckAuthenticate(AuthModel person)
+        public string GetAdUserLogin(AuthorizationModel person)
         {
-            var sd = person.GetUserFromAD(_ldapConfig, _userRepository);
-            return false;
+            using (LdapConnection connection = new LdapConnection(new LdapDirectoryIdentifier(_ldapConfig.Url)))
+            {
+                connection.Bind(new NetworkCredential(person.Login, person.Password));
+
+                var searchFilter = string.Format(_ldapConfig.SearchFilter, person.Login);
+
+                SearchRequest searchRequest = new SearchRequest(
+                _ldapConfig.SearchBase,
+                searchFilter,
+                SearchScope.Subtree,
+                new[] { MemberOfAttribute, DisplayNameAttribute, SAMAccountNameAttribute, "company" });
+
+                SearchResponse searchResponse = (SearchResponse)connection.SendRequest(searchRequest);
+
+                if (searchResponse.Entries.Count == 1)
+                {
+                    return searchResponse.Entries[0].Attributes["sAMAccountName"][0].ToString();
+                }
+                return null;
+            }
         }
     }
 }
