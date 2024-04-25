@@ -1,6 +1,6 @@
 ﻿using DataLayer.Entities;
 using Microsoft.Extensions.Options;
-using ServiceLayer.AuthentificationService;
+using ServiceLayer.AuthenticationService;
 using ServiceLayer.AuthorizeService.Interface;
 using ServiceLayer.UserService.Interface;
 using System.DirectoryServices.Protocols;
@@ -8,7 +8,7 @@ using System.Net;
 
 namespace ServiceLayer.AuthorizeService.Concrete
 {
-    public class LdapAuthentificationService : ILdapAuthentificationService
+    public class LdapAuthenticationService : ILdapAuthentificationService
     {
         private const string MemberOfAttribute = "memberOf";
         private const string DisplayNameAttribute = "displayName";
@@ -16,12 +16,12 @@ namespace ServiceLayer.AuthorizeService.Concrete
 
         private readonly LdapConfig _ldapConfig;
 
-        public LdapAuthentificationService(IOptions<LdapConfig> config)
+        public LdapAuthenticationService(IOptions<LdapConfig> config)
         {
             _ldapConfig = config.Value;
         }
 
-        public string GetAdUserLogin(AuthorizationModel person)
+        public string GetAdUserLogin(AuthenticationModel person)
         {
             //Todo docstring + комментарии
             using (LdapConnection connection = new LdapConnection(new LdapDirectoryIdentifier(_ldapConfig.Url)))

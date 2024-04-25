@@ -1,7 +1,7 @@
 ﻿using IpraAspNet.Mvc.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ServiceLayer.AuthentificationService;
+using ServiceLayer.AuthenticationService;
 using ServiceLayer.AuthorizeService.Interface;
 using ServiceLayer.IpraService;
 using ServiceLayer.UserService;

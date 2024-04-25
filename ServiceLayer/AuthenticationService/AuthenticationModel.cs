@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ServiceLayer.AuthentificationService
+namespace ServiceLayer.AuthenticationService
 {
-    public class AuthorizationModel
+    public class AuthenticationModel
     {
         [Required(ErrorMessage = "Пользователь не найден")]
         public string Login {  get; set; }

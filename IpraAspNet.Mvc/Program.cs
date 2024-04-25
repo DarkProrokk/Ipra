@@ -1,7 +1,7 @@
 using DataLayer.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using ServiceLayer.AuthentificationService;
+using ServiceLayer.AuthenticationService;
 using ServiceLayer.AuthorizeService.Concrete;
 using ServiceLayer.AuthorizeService.Interface;
 using ServiceLayer.UserService.Concrete;
@@ -23,7 +23,7 @@ builder.Services.Configure<LdapConfig>(builder.Configuration.GetSection("ldap"))
 
 //Объявление сервисов
 builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddTransient<ILdapAuthentificationService, LdapAuthentificationService>();
+builder.Services.AddTransient<ILdapAuthentificationService, LdapAuthenticationService>();
 
 
 builder.Services.AddSwaggerGen(c =>

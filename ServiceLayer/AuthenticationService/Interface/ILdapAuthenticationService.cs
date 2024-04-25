@@ -1,4 +1,4 @@
-﻿using ServiceLayer.AuthentificationService;
+﻿using ServiceLayer.AuthenticationService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +14,6 @@ namespace ServiceLayer.AuthorizeService.Interface
         /// </summary>
         /// <param name="person"></param>
         /// <returns>Логин пользователя из AD</returns>
-        public string GetAdUserLogin(AuthorizationModel person);
+        public string GetAdUserLogin(AuthenticationModel person);
     }
 }

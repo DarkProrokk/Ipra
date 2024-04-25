@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.AspNetCore.Mvc;
-using ServiceLayer.AuthentificationService;
+using ServiceLayer.AuthenticationService;
 using ServiceLayer.AuthorizeService.Interface;
 using ServiceLayer.UserService.Interface;
 using System.DirectoryServices.Protocols;
@@ -31,7 +31,7 @@ namespace IpraAspNet.Mvc.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(AuthorizationModel model)
+        public async Task<IActionResult> Login(AuthenticationModel model)
         {
             if (ModelState.IsValid && await _userService.IsExistAsync(model.Login))
             {
