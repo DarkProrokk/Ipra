@@ -31,6 +31,17 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Ipra", Version = "v1" });
 });
 
+//Авторизация через куки
+builder.Services.AddAuthentication("CookieAuthentication")
+     .AddCookie("CookieAuthentication", config =>
+     {
+         config.ExpireTimeSpan = TimeSpan.FromHours(72);
+         config.Cookie.Name = "UserLoginCookie";
+         config.LoginPath = "/Authorization/Login";
+         config.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Authorization/Login");
+
+     });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

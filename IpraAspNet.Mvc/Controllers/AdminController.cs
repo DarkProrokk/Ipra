@@ -15,18 +15,15 @@ namespace IpraAspNet.Mvc.Controllers
     {
         private readonly ILogger<AdminController> _logger;
         private readonly IUserService _userService;
-        private readonly ILdapAuthentificationService _ldapService;
 
-        public AdminController(ILogger<AdminController> logger, IUserService userService, ILdapAuthentificationService ldapService)
+        public AdminController(ILogger<AdminController> logger, IUserService userService)
         {
             _logger = logger;
             _userService = userService;
-            _ldapService = ldapService;
         }
 
         public IActionResult Index(UsersSortFilterPageOptions options)
         {
-            _ldapService.CheckAuthenticate(new AuthModel { Login = "GolikovVI", Password = "FBs2iY86At35"});
             return View();
         }
 
