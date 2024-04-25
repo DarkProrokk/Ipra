@@ -22,11 +22,16 @@ namespace ServiceLayer.UserService.Interface
         /// Возвращает информацию о пользователе, подходящуюю для страницы изменения данных пользователя
         /// </summary>
         /// <returns>Пользователь, найденный по userId</returns>
-        public UserDto GetUserForUpdatePage(int userId);
+        public UserDto GetUserDto(int userId);
 
         /// <summary>
         /// Возвращает объект User из БД по логину
         /// </summary>
-        public User GetUser(string username);
+        public Task<User> GetUserAsync(string username);
+
+        /// <summary>
+        /// Проверяет наличие пользователя в базе по логину
+        /// </summary>
+        public Task<bool> IsExistAsync(string username);
     }
 }
