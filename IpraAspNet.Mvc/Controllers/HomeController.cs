@@ -8,13 +8,20 @@ using System.Diagnostics;
 
 namespace IpraAspNet.Mvc.Controllers;
 
-public class HomeController(ILogger<HomeController> logger, IpraContext context) : Controller
+public class HomeController(IpraContext context) : Controller
 {
     public async Task<IActionResult> Index(IpraSortFilterPageOptions options)
     {
-        var listService = new ListIpraService(context);
-        var ipraList = await listService.SortFilterPage(options).ToListAsync();
-        return View(new IpraListCombinedDto(options, ipraList));
+        try
+        {
+            var listService = new ListIpraService(context);
+            var ipraList = await listService.SortFilterPage(options).ToListAsync();
+            return View(new IpraListCombinedDto(options, ipraList));
+        }
+        catch (ArgumentOutOfRangeException ex)
+        {
+            return NotFound();
+        }
     }
 
     public IActionResult Test()
@@ -22,11 +29,5 @@ public class HomeController(ILogger<HomeController> logger, IpraContext context)
         IpraSortFilterPageOptions options = new IpraSortFilterPageOptions();
         options.SetupTestOfDto();
         return View(options);
-    }
-
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }
