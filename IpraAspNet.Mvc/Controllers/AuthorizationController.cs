@@ -10,6 +10,7 @@ using System.Security.Claims;
 
 namespace IpraAspNet.Mvc.Controllers
 {
+    //todo комментарии + docstring
     public class AuthorizationController : Controller
     {
         private readonly IUserService _userService;
@@ -38,7 +39,8 @@ namespace IpraAspNet.Mvc.Controllers
                 {
                     var login = _ldapService.GetAdUserLogin(model);
                     var user = await _userService.GetUserAsync(login);
-
+                    //Todo: Вынести клаймсы в отдельный метод
+                    #region Claims
                     var userClaims = new List<Claim>
                     {
                         new Claim("username", user.UserName),
@@ -46,7 +48,7 @@ namespace IpraAspNet.Mvc.Controllers
                     };
 
                     var principal = new ClaimsPrincipal(new ClaimsIdentity(userClaims, _ldapService.GetType().Name));
-
+                    #endregion
                     await HttpContext.SignInAsync("CookieAuthentication", principal);
 
                     return RedirectToAction("Index", "Admin");

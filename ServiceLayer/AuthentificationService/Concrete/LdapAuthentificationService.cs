@@ -23,6 +23,7 @@ namespace ServiceLayer.AuthorizeService.Concrete
 
         public string GetAdUserLogin(AuthorizationModel person)
         {
+            //Todo docstring + комментарии
             using (LdapConnection connection = new LdapConnection(new LdapDirectoryIdentifier(_ldapConfig.Url)))
             {
                 connection.Bind(new NetworkCredential(person.Login, person.Password));
@@ -41,6 +42,7 @@ namespace ServiceLayer.AuthorizeService.Concrete
                 {
                     return searchResponse.Entries[0].Attributes["sAMAccountName"][0].ToString();
                 }
+                //Todo возвращать ошибку, вместо null
                 return null;
             }
         }

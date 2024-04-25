@@ -11,6 +11,7 @@ using System.Diagnostics;
 
 namespace IpraAspNet.Mvc.Controllers
 {
+    //todo Комментарии + docstring
     public class AdminController : Controller
     {
         private readonly ILogger<AdminController> _logger;
@@ -30,7 +31,7 @@ namespace IpraAspNet.Mvc.Controllers
         [HttpPost]
         public async Task<IActionResult> GetUserList(UsersSortFilterPageOptions options)
         {
-
+            //Todo: Перенести в Combined 
             var columnsMapping = new Dictionary<string, string>
             {
                 { "id", "id" },
