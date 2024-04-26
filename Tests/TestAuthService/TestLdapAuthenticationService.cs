@@ -24,7 +24,7 @@ public class TestLdapAuthenticationService
         _service = new LdapAuthenticationService(options);
     }
     [Theory]
-    [InlineData("SeroshtanMA", "87NtkJajRjl")]
+    [InlineData(null, null)]
     public void TestGetUserInAd(string login, string password)
     {
         //Arrange
