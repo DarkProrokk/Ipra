@@ -11,7 +11,6 @@ using System.Diagnostics;
 
 namespace IpraAspNet.Mvc.Controllers
 {
-    //todo Комментарии + docstring
     public class AdminController : Controller
     {
         private readonly ILogger<AdminController> _logger;
@@ -31,21 +30,9 @@ namespace IpraAspNet.Mvc.Controllers
         [HttpPost]
         public async Task<IActionResult> GetUserList(UsersSortFilterPageOptions options)
         {
-            //Todo: Перенести в Combined 
-            var columnsMapping = new Dictionary<string, string>
-            {
-                { "id", "id" },
-                { "userName", "Логин" },
-                { "userRoleUsers", "Роли" },
-                { "surname", "Фамилия" },
-                { "name", "Имя" },
-                { "patronymic", "Отчество" },
-                { "post", "Должность" },
-                { "userMOUsers", "МО" },
-            };
-            
+            //Получаем список пользователей отсортированный и отфильтрованый в соответствии с options
             var usersList = await _userService.GetSortedFilteredPage(options).ToListAsync();
-            return new JsonResult(new { data = new UsersListCombinedDto(options, usersList), columnsMapping });
+            return new JsonResult(new { data = new UsersListCombinedDto(options, usersList) });
             //return new JsonResult(new { data = usersList, columnsMapping = columnsMapping });
         }
 
