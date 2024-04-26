@@ -22,7 +22,7 @@ namespace ServiceLayer.AuthorizeService.Concrete
             _ldapConfig = config.Value;
         }
 
-        public bool AdExist(AuthenticationModel person)
+        public bool IsAdExist(AuthenticationModel person)
         {
             try
             {

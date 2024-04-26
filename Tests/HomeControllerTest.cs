@@ -21,20 +21,6 @@ public class HomeControllerTest
         var result = await controller.Index(options);
 
         // Assert
-        var viewResult = Assert.IsType<ViewResult>(result);
+        Assert.IsType<ViewResult>(result);
     }
-
-    /*[Fact]
-    public async Task Index_CatchesArgumentOutOfRangeException_ReturnsNotFound()
-    {
-        // Arrange
-        var options = new IpraSortFilterPageOptions();
-        context.Setup(...); // Setup context to throw ArgumentOutOfRangeException
-
-        // Act
-        var result = await controller.Index(options);
-
-        // Assert
-        Assert.IsType<NotFoundResult>(result);
-    }*/
 }

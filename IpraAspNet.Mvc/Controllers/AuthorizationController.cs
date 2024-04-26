@@ -36,7 +36,7 @@ namespace IpraAspNet.Mvc.Controllers
             {
                 try
                 {
-                    if(_ldapService.AdExist(model))
+                    if(_ldapService.IsAdExist(model))
                     {
                         var user = await _userService.GetUserAsync(model.Login);
                         

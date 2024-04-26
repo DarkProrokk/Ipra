@@ -15,7 +15,7 @@ namespace ServiceLayer.AuthorizeService.Interface
         /// Проверяет пользователя в AD.
         /// </summary>
         /// <returns>true - запись найдена, false - запись не найдена</returns>
-        public bool AdExist(AuthenticationModel person);
+        public bool IsAdExist(AuthenticationModel person);
 
         /// <summary>
         /// Метод для создания объекта ClaimsPrincipal на основе данных пользователя.
