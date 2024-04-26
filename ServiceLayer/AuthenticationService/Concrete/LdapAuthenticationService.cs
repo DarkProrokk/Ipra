@@ -9,7 +9,7 @@ using System.Security.Claims;
 
 namespace ServiceLayer.AuthorizeService.Concrete
 {
-    public class LdapAuthenticationService : ILdapAuthentificationService
+    public class LdapAuthenticationService : ILdapAuthenticationService
     {
         private const string MemberOfAttribute = "memberOf";
         private const string DisplayNameAttribute = "displayName";
