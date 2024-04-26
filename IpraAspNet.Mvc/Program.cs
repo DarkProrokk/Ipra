@@ -23,7 +23,7 @@ builder.Services.Configure<LdapConfig>(builder.Configuration.GetSection("ldap"))
 
 //Объявление сервисов
 builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddTransient<ILdapAuthentificationService, LdapAuthenticationService>();
+builder.Services.AddTransient<ILdapAuthenticationService, LdapAuthenticationService>();
 
 
 builder.Services.AddSwaggerGen(c =>

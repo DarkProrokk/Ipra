@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ServiceLayer.AuthorizeService.Interface
 {
-    public interface ILdapAuthentificationService
+    public interface ILdapAuthenticationService
     {
         /// <summary>
         /// Проверяет пользователя в AD.

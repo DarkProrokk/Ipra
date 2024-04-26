@@ -13,9 +13,9 @@ namespace IpraAspNet.Mvc.Controllers
     public class AuthorizationController : Controller
     {
         private readonly IUserService _userService;
-        private readonly ILdapAuthentificationService _ldapService;
+        private readonly ILdapAuthenticationService _ldapService;
 
-        public AuthorizationController(ILdapAuthentificationService ldapService, IUserService userService)
+        public AuthorizationController(ILdapAuthenticationService ldapService, IUserService userService)
         {
             _userService = userService;
             _ldapService = ldapService;
