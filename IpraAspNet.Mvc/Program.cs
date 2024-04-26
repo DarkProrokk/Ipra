@@ -1,5 +1,12 @@
 using DataLayer.Context;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using ServiceLayer.AuthenticationService;
+using ServiceLayer.AuthorizeService.Concrete;
+using ServiceLayer.AuthorizeService.Interface;
+using ServiceLayer.UserService.Concrete;
+using ServiceLayer.UserService.Interface;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +17,30 @@ builder.Configuration.AddJsonFile("appsettings.Development.json");
 
 builder.Services.AddDbContext<IpraContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresConnection")));
+
+//Ldap
+builder.Services.Configure<LdapConfig>(builder.Configuration.GetSection("ldap"));
+
+//Объявление сервисов
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddTransient<ILdapAuthentificationService, LdapAuthenticationService>();
+
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Ipra", Version = "v1" });
+});
+
+//Авторизация через куки
+builder.Services.AddAuthentication("CookieAuthentication")
+     .AddCookie("CookieAuthentication", config =>
+     {
+         config.ExpireTimeSpan = TimeSpan.FromHours(72);
+         config.Cookie.Name = "UserLoginCookie";
+         config.LoginPath = "/Authorization/Login";
+         config.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Authorization/Login");
+
+     });
 
 var app = builder.Build();
 
@@ -25,6 +56,11 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSwagger();
+app.UseSwaggerUI(options =>
+{
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+});
 
 app.UseAuthorization();
 

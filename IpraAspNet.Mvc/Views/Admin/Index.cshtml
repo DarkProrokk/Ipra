@@ -1,36 +1,19 @@
-﻿@model ServiceLayer.UserService.UsersListCombinadDto
+﻿@model ServiceLayer.UserService.UsersListCombinedDto
 
 @{
     ViewData["Title"] = "Home Page";
 }
-<form id="sort-filter-form" role="form">
-    @* <div class="col-sm-3">
-        <label>Фильтр по статусу</label>
-        <select asp-for="IpraSortFilterPageData.FilterByStatus" name="FilterByStatus"
-                asp-items="Html.GetEnumSelectList<ServiceLayer.IpraService.QueryObject.IpraFilterByStatus>()"
-                class="form-control sort-filter-width"></select>
-    </div>
-    <div class="col-sm-3">
-        <label>Фильтр по окончанию</label>
-        <select asp-for="IpraSortFilterPageData.FilterByEndless" name="FilterByEndless"
-                asp-items="Html.GetEnumSelectList<ServiceLayer.IpraService.QueryObject.IpraFilterByEndless>()"
-                class="form-control sort-filter-width"></select>
-    </div>
-    <div class="col-sm-1">
-        <label>Page</label>
-        <div>
-            <input asp-for="IpraSortFilterPageData.PageNum" name="PageNum"
-                   class="form-control page-control-width page-num-input">
-            <span class="num-pages-text">of @Model.IpraSortFilterPageData.NumPages</span>
-        </div>
-    </div>
+<body>
+    <h1>Список пользователей</h1>
 
-    @Html.Hidden("PrevCheckState", @Model.IpraSortFilterPageData.PrevCheckState) *@
+    <p>
+        Поиск: <input type="text" id="searchString" name="searchString">
+        <button onclick="filterData()">Применить фильтр</button>
+    </p>
 
-</form>
-<ul>
-    @foreach (var record in Model.UsersList)
-    {
-        <li>@record.UserName, @record.Name, @record.Surname, @record.Patronymic</li>
-    }
-</ul>
+    
+    <table id="userTable" class="display" style="width:100%"></table>
+
+</body>
+
+

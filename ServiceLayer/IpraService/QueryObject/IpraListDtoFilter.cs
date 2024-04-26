@@ -1,4 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Linq.Expressions;
+using DataLayer.Entities;
+using DataLayer.Extensions;
+using ServiceLayer.IpraService.Models;
 
 namespace ServiceLayer.IpraService.QueryObject;
 
@@ -68,6 +72,25 @@ public static class IpraListDtoFilter
                 return ipra.Where(s => s.IsEndless == true);
             default:
                 throw new ArgumentOutOfRangeException(nameof(filterBy), filterBy, null);
+        }
+    }
+
+    public static IQueryable<IpraListDto> FilterIpraSearch(this IQueryable<IpraListDto> ipra, string? filterBy, string? filterValue)
+    {
+        if (filterBy is null || filterValue is null)
+        {
+            return ipra;
+        }
+
+        try
+        {
+            var expression = EqualFieldExtension.EqualField<IpraListDto>(filterBy, filterValue);
+            return ipra.Where(expression);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
         }
     }
 }

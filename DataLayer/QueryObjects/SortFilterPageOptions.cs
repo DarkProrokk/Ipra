@@ -30,6 +30,10 @@ public class SortFilterPageOptions
     
     public int NumNotes { get; private set; }
 
+    public string? FilterBy { get; set; }
+
+    public string? FilterValue { get; set; }
+
     /// <summary>
     ///     Сохраняет состояние ключевых частей частей SortFilterPage
     /// </summary>
@@ -51,8 +55,8 @@ public class SortFilterPageOptions
             Math.Max(1, PageNum), NumPages);
 
         var newCheckState = GenerateCheckState();
-        if (PrevCheckState != newCheckState)
-            PageNum = 1;
+        //if (PrevCheckState != newCheckState)
+        //    PageNum = 1;
 
         PrevCheckState = newCheckState;
     }

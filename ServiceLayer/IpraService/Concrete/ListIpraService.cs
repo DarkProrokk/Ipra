@@ -36,6 +36,7 @@ public class ListIpraService
             .OrderBy(x => x.id)
             .FilterIpraByStatus(options.FilterByStatus) 
             .FilterIpraByEndless(options.FilterByEndless)
+            .FilterIpraSearch(options.FilterBy, options.FilterValue)
             .MapDtoToViewModel(); 
 
         // Устанавливаем дополнительные параметры для Dto.
