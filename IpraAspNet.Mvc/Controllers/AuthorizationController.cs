@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using DataLayer.Entities;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.AspNetCore.Mvc;
@@ -32,34 +33,29 @@ namespace IpraAspNet.Mvc.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(AuthenticationModel model)
         {
-            if (ModelState.IsValid && await _userService.IsExistAsync(model.Login))
+            if (!ModelState.IsValid)
             {
-                try
-                {
-                    if(_ldapService.IsAdExist(model))
-                    {
-                        var user = await _userService.GetUserAsync(model.Login);
-                        
-                        await HttpContext.SignInAsync("CookieAuthentication", _ldapService.GetClaimsPrincipal(user));
-
-                        return RedirectToAction("Index", "Admin");
-                    }
-                    ModelState.AddModelError("User was not found in AD", "Неверный логин или пароль");
-                    return View(model);
-                }
-                catch (LdapException)
-                {
-                    ModelState.AddModelError("incorrect login or password", "Неверный логин или пароль");
-                    return View(model);
-                }
-                catch (Exception)
-                {
-                    return View(model);
-                }
-
+                ModelState.AddModelError("User was not found in DB", "Такой пользователь не существует");
+                return BadRequest(model);
             }
-            ModelState.AddModelError("User was not found in DB", "Такой пользователь не существует");
-            return View(model);
+
+            try
+            {
+                var claimsPrincipal = await _ldapService.GetClaimsPrincipalAsync(model);
+
+                await HttpContext.SignInAsync("CookieAuthentication", claimsPrincipal);
+
+                return RedirectToAction("Index", "Admin");
+            }
+            catch (LdapException ex)
+            {
+                ModelState.AddModelError("error", ex.Message);
+                return View(model);
+            }
+            catch (Exception)
+            {
+                return View(model);
+            }
         }
     }
 }

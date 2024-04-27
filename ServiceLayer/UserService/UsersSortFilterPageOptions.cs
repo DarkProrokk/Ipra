@@ -1,7 +1,6 @@
 ﻿using DataLayer.QueryObjects;
-using ServiceLayer.IpraService.QueryObject;
 
-namespace ServiceLayer.IpraService;
+namespace ServiceLayer.UserService;
 
 public class UsersSortFilterPageOptions: SortFilterPageOptions
 {
