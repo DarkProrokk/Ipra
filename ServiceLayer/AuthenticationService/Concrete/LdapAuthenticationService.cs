@@ -9,56 +9,28 @@ using System.Security.Claims;
 
 namespace ServiceLayer.AuthorizeService.Concrete
 {
-    public class LdapAuthenticationService : ILdapAuthenticationService
+    public class LdapAuthenticationService :ILdapAuthenticationService
     {
-        private const string MemberOfAttribute = "memberOf";
-        private const string DisplayNameAttribute = "displayName";
-        private const string SAMAccountNameAttribute = "sAMAccountName";
+        private readonly IOptions<LdapConfig> _ldapConfig;
+        private readonly IUserService _userService;
 
-        private readonly LdapConfig _ldapConfig;
-
-        public LdapAuthenticationService(IOptions<LdapConfig> config)
+        public LdapAuthenticationService(IOptions<LdapConfig> config, IUserService userService)
         {
-            _ldapConfig = config.Value;
+            _ldapConfig = config;
+            _userService = userService;
         }
 
-        public bool IsAdExist(AuthenticationModel person)
+        public async Task<ClaimsPrincipal> GetClaimsPrincipalAsync(AuthenticationModel person)
         {
-            try
-            {
-                // Установка соединения с сервером AD
-                using (LdapConnection connection = new LdapConnection(new LdapDirectoryIdentifier(_ldapConfig.Url)))
-                {
-                    //Проверка соответствия данных в AD
-                    connection.Bind(new NetworkCredential(person.Login, person.Password));
+            //Проверка пользователя в базе
+            if (!await _userService.AccountExistsAsync(person.Login)) throw new LdapException("Такой пользователь не существует");
 
-                    var searchFilter = string.Format(_ldapConfig.SearchFilter, person.Login);
+            var adVerivier = new AdVerifier(_ldapConfig);
+            //Проверка пользователя в AD
+            if(!adVerivier.AdAccountExists(person)) throw new LdapException("Неверный логин или пароль");
 
-                    SearchRequest searchRequest = new SearchRequest(
-                    _ldapConfig.SearchBase,
-                    searchFilter,
-                    SearchScope.Subtree,
-                    new[] { MemberOfAttribute, DisplayNameAttribute, SAMAccountNameAttribute, "company" });
+            var user = await _userService.GetUserAsync(person.Login);
 
-                    // Отправка поискового запроса на сервер LDAP с использованием соединения и получение результатов поиска
-                    SearchResponse searchResponse = (SearchResponse)connection.SendRequest(searchRequest);
-
-                    // Проверяем количество найденых персон
-                    if (searchResponse.Entries.Count == 1)
-                        return true;
-                    else
-                        return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                // TODO: Добавить логирование
-                return false;
-            }
-        }
-
-        public ClaimsPrincipal GetClaimsPrincipal(User user)
-        {
             // Создание списка утверждений для пользователя
             var userClaims = new List<Claim>
             {
@@ -66,9 +38,9 @@ namespace ServiceLayer.AuthorizeService.Concrete
                 new Claim(ClaimsIdentity.DefaultRoleClaimType, user.UserRoleUsers.FirstOrDefault()?.Role.RoleName.ToString() ?? string.Empty)
             };
 
-            // Создание объекта ClaimsPrincipal на основе списка утверждений и указанного типа аутентификации "ldapService"
-            var principal = new ClaimsPrincipal(new ClaimsIdentity(userClaims, "ldapService"));
-            return principal;
+            // Возвращаем объект ClaimsPrincipal, созданный на основе списка утверждений
+            // и указанного типа аутентификации "ldapService"
+            return new ClaimsPrincipal(new ClaimsIdentity(userClaims, "ldapService"));
         }
     }
 }

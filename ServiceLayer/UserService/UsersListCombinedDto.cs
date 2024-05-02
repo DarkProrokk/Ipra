@@ -15,8 +15,8 @@ namespace ServiceLayer.UserService
 
         public IEnumerable<UsersListDto> UsersList { get; private set; } = usersList;
 
-        public Dictionary<string, string> HeaderList { get; private set; } = GetUsersColumnHeader();
-        public static Dictionary<string, string> GetUsersColumnHeader()
+        public Dictionary<string, string> HeadersList { get; private set; } = GetHeaders();
+        public static Dictionary<string, string> GetHeaders()
         {
             return new Dictionary<string, string>
             {

@@ -12,18 +12,12 @@ namespace ServiceLayer.AuthorizeService.Interface
     public interface ILdapAuthenticationService
     {
         /// <summary>
-        /// Проверяет пользователя в AD.
-        /// </summary>
-        /// <returns>true - запись найдена, false - запись не найдена</returns>
-        public bool IsAdExist(AuthenticationModel person);
-
-        /// <summary>
         /// Метод для создания объекта ClaimsPrincipal на основе данных пользователя.
         /// Если роль пользователя доступна, добавляет утверждение о роли, иначе добавляет пустую строку.
         /// Создает объект ClaimsPrincipal с указанным именем и списком утверждений и возвращает его.
         /// </summary>
         /// <param name="user">Объект пользователя</param>
         /// <returns></returns>
-        public ClaimsPrincipal GetClaimsPrincipal(User user);
+        public Task<ClaimsPrincipal> GetClaimsPrincipalAsync(AuthenticationModel user);
     }
 }

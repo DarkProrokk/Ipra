@@ -32,6 +32,6 @@ namespace ServiceLayer.UserService.Interface
         /// <summary>
         /// Проверяет наличие пользователя в базе по логину
         /// </summary>
-        public Task<bool> IsExistAsync(string username);
+        public Task<bool> AccountExistsAsync(string username);
     }
 }

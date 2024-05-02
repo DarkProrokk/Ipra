@@ -2,17 +2,9 @@
 using DataLayer.Entities;
 using DataLayer.QueryObjects;
 using Microsoft.EntityFrameworkCore;
-using ServiceLayer.IpraService;
-
+using ServiceLayer.UserService.Helpers;
 using ServiceLayer.UserService.Interface;
-using ServiceLayer.UserService.Helpers;
 using ServiceLayer.UserService.QueryObject;
-using ServiceLayer.UserService.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ServiceLayer.UserService.Concrete
 {
@@ -70,7 +62,7 @@ namespace ServiceLayer.UserService.Concrete
                 .FirstOrDefaultAsync(u => u.UserName.ToLower() == username.ToLower());
         }
 
-        public async Task<bool> IsExistAsync(string username)
+        public async Task<bool> AccountExistsAsync(string username)
         {
             return await _context.Users.FirstOrDefaultAsync(x => x.UserName.ToLower() == username.ToLower()) != null;
         }
