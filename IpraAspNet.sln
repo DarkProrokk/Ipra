@@ -3,16 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IpraAspNet.Mvc", "IpraAspNet.Mvc\IpraAspNet.Mvc.csproj", "{8260602C-16DB-4245-9DBE-ED4D20D95386}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IpraAspNet.Web", "IpraAspNet.Web\IpraAspNet.Web.csproj", "{8260602C-16DB-4245-9DBE-ED4D20D95386}"
 	ProjectSection(ProjectDependencies) = postProject
 		{FD88B704-AAB1-4DED-A759-4A383ADA6B35} = {FD88B704-AAB1-4DED-A759-4A383ADA6B35}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLayer", "DataLayer\DataLayer.csproj", "{E291206F-1E7B-4AD4-BEF6-9B75590DE780}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IpraAspNet.Domain", "IpraAspNet.Domain\IpraAspNet.Domain.csproj", "{E291206F-1E7B-4AD4-BEF6-9B75590DE780}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceLayer", "ServiceLayer\ServiceLayer.csproj", "{FD88B704-AAB1-4DED-A759-4A383ADA6B35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IpraAspNet.Application", "IpraAspNet.Application\IpraAspNet.Application.csproj", "{FD88B704-AAB1-4DED-A759-4A383ADA6B35}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{10159D77-307A-47F7-9F3A-A4E657ABEF2C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IpraAspNet.Infrastructure", "IpraAspNet.Infrastructure\IpraAspNet.Infrastructure.csproj", "{A26CB4C5-6FBF-4133-8360-B7CF408174C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +38,10 @@ Global
 		{10159D77-307A-47F7-9F3A-A4E657ABEF2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10159D77-307A-47F7-9F3A-A4E657ABEF2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10159D77-307A-47F7-9F3A-A4E657ABEF2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A26CB4C5-6FBF-4133-8360-B7CF408174C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A26CB4C5-6FBF-4133-8360-B7CF408174C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A26CB4C5-6FBF-4133-8360-B7CF408174C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A26CB4C5-6FBF-4133-8360-B7CF408174C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

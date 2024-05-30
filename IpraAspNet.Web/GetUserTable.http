@@ -1,0 +1,7 @@
+@BaseApiUrl = localhost:5001/api
+POST https://{{BaseApiUrl}}/GetDataApi/GetUsersList
+Content-Type: application/json
+
+{
+
+}

@@ -1,11 +1,11 @@
-using DataLayer.Context;
+using IpraAspNet.Domain.Context;
 using Xunit;
-using DataLayer.Entities;
-using Microsoft.EntityFrameworkCore;
-using ServiceLayer.IpraService;
-using ServiceLayer.IpraService.Concrete;
-using ServiceLayer.IpraService.QueryObject;
-using Xunit.Abstractions;
+using IpraAspNet.Domain.Entities;
+
+using IpraAspNet.Application.IpraService;
+
+using IpraAspNet.Application.IpraService.QueryObject;
+
 
 namespace Tests;
 

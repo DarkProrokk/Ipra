@@ -1,8 +1,8 @@
-using DataLayer.Context;
-using IpraAspNet.Mvc.Controllers;
+using IpraAspNet.Domain.Context;
+using IpraAspNet.Web.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using ServiceLayer.IpraService;
+using IpraAspNet.Application.IpraService;
 
 namespace Tests;
 

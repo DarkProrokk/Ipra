@@ -1,0 +1,19 @@
+@BaseApiUrl = localhost:5001/api
+
+POST https://{{BaseApiUrl}}/GetDataApi/GetData
+Content-Type: application/json
+
+{
+ "FilterByStatus":3,
+ "FilterByEndless":3
+}
+
+###
+
+POST https://{{BaseApiUrl}}/GetDataApi/GetData
+Content-Type: application/json
+
+{
+  "FilterByStatus":3,
+  "FilterByEndless":2
+}

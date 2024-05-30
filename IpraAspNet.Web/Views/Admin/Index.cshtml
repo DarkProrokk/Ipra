@@ -1,0 +1,20 @@
+﻿@model IpraAspNet.Application.UserService.UsersListCombinedDto
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+<body>
+    <h1>Список пользователей</h1>
+
+    <p>
+        Поиск: <input type="text" id="searchString" name="searchString">
+        <button onclick="filterData()">Применить фильтр</button>
+    </p>
+
+    
+    <table id="userTable" class="display" style="width:100%"></table>
+
+</body>
+
+
+<script src="~/js/AjaxUserTableBuilder.js" defer></script>

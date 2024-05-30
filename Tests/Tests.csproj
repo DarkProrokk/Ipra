@@ -23,9 +23,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\DataLayer\DataLayer.csproj" />
-      <ProjectReference Include="..\IpraAspNet.Mvc\IpraAspNet.Mvc.csproj" />
-      <ProjectReference Include="..\ServiceLayer\ServiceLayer.csproj" />
+      <ProjectReference Include="..\IpraAspNet.Domain\IpraAspNet.Domain.csproj" />
+      <ProjectReference Include="..\IpraAspNet.Web\IpraAspNet.Web.csproj" />
+      <ProjectReference Include="..\IpraAspNet.Application\IpraAspNet.Application.csproj" />
     </ItemGroup>
 
 </Project>

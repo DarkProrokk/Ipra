@@ -1,0 +1,52 @@
+﻿@using IpraAspNet.Application.IpraService
+@using IpraAspNet.Domain.QueryObjects
+@model IpraAspNet.Application.IpraService.IpraSortFilterPageOptions
+
+<form id="sort-filter-form" role="form">
+    <div class="col-sm-3">
+        <label>Фильтр по статусу</label>
+        <select asp-for="FilterByStatus" name="FilterByStatus"
+                asp-items="Html.GetEnumSelectList<IpraAspNet.Application.IpraService.QueryObject.IpraFilterByStatus>()"
+                class="form-control sort-filter-width"
+                onchange="AjaxTableBuilder.sendForm(this)"></select>
+    </div>
+    <div class="col-sm-3">
+        <label>Фильтр по окончанию</label>
+        <select asp-for="FilterByEndless" name="FilterByEndless"
+                asp-items="Html.GetEnumSelectList<IpraAspNet.Application.IpraService.QueryObject.IpraFilterByEndless>()"
+                class="form-control sort-filter-width"
+                onchange="AjaxTableBuilder.sendForm(this)"></select>
+    </div>
+    <div class="col-sm-1">
+        <label>Page&nbsp;Size</label>
+        <select asp-for="PageSize" name="PageSize"
+                asp-items="@Model.PageSizes.Select(x => new SelectListItem{Text = x.ToString(), Value = x.ToString()})"
+                onchange="AjaxTableBuilder.sendForm(this)"></select>
+    </div>
+    <div class="col-sm-2">
+        <label>Page</label>
+        <div>
+            <input asp-for="PageNum" name="PageNum"
+                   class="form-control page-control-width page-num-input"
+                   onchange="AjaxTableBuilder.sendForm(this)">
+            <span id="num-pages-text" class="num-pages-text"></span>
+        </div>
+    </div>
+
+    
+    <div>
+        <ul class="pagination">
+            @for (var i = 1; i <= Model.NumPages; i++)
+            {
+                <li class="page-item @(i == Model.PageNum ? "active" : "")">
+                    <a asp-page="/pagination" asp-route-currentpage="@i" class="page-link">@i</a>
+                </li>
+            }
+        </ul>
+    </div>
+    @Html.Hidden("PrevCheckState", @Model.PrevCheckState)
+    <table id="dataTable" class="table table-hover">
+
+    </table>
+</form>
+<script src="~/js/AjaxTableBuilder.js" defer></script>
