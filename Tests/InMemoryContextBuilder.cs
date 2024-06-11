@@ -1,4 +1,4 @@
-using IpraAspNet.Domain.Context;
+using IpraAspNet.Application.Context;
 using Microsoft.EntityFrameworkCore;
 
 namespace Tests;

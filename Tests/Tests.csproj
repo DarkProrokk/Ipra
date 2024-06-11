@@ -11,6 +11,7 @@
 
     <ItemGroup>
         <PackageReference Include="coverlet.collector" Version="6.0.0"/>
+        <PackageReference Include="JetBrains.Annotations" Version="2024.2.0-eap1" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.4" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0"/>
         <PackageReference Include="Moq" Version="4.20.70" />
@@ -24,6 +25,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\IpraAspNet.Domain\IpraAspNet.Domain.csproj" />
+      <ProjectReference Include="..\IpraAspNet.Infrastructure\IpraAspNet.Infrastructure.csproj" />
       <ProjectReference Include="..\IpraAspNet.Web\IpraAspNet.Web.csproj" />
       <ProjectReference Include="..\IpraAspNet.Application\IpraAspNet.Application.csproj" />
     </ItemGroup>

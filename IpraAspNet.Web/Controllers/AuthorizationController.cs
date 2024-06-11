@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using IpraAspNet.Application.AuthenticationService;
 using IpraAspNet.Application.AuthorizeService.Interface;
-using IpraAspNet.Application.UserService.Interface;
+using IpraAspNet.Application.Interfaces;
 using System.DirectoryServices.Protocols;
 
 namespace IpraAspNet.Web.Controllers

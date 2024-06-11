@@ -1,35 +1,30 @@
-using IpraAspNet.Domain.Context;
-using IpraAspNet.Web.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using IpraAspNet.Application.IpraService;
-using IpraAspNet.Application.IpraService.Concrete;
-using System.Diagnostics;
-using IpraAspNet.Domain.Entities;
-using IpraAspNet.Application.DAL.Abstract;
+using IpraAspNet.Domain.Interfaces;
+using IpraAspNet.Domain.QueryObjects;
+
 
 namespace IpraAspNet.Web.Controllers;
 
-public class HomeController(IpraContext context) : Controller
+public class HomeController(IIpraRepository repository) : Controller
 {
-    public async Task<IActionResult> Index(IpraSortFilterPageOptions options)
+    public IActionResult Index()
     {
-        try
-        {
-            var listService = new ListIpraService(context);
-            var ipraList = await listService.SortFilterPage(options).ToListAsync();
-            return View(new IpraListCombinedDto(options, ipraList));
-        }
-        catch (ArgumentOutOfRangeException ex)
-        {
-            return NotFound();
-        }
+        // try
+        // {
+        //     var listService = new IpraService(repository);
+        //     var ipraList = listService.SortFilterPage(options);
+        //     return View(new IpraListCombinedDto(options, ipraList));
+        // }
+        // catch (ArgumentOutOfRangeException ex)
+        // {
+        //     return NotFound();
+        // }
+        return Ok();
     }
 
     public IActionResult Test()
     {
-        IpraSortFilterPageOptions options = new IpraSortFilterPageOptions();
-        options.SetupTestOfDto();
+        PagingOptions options = new PagingOptions();
         return View(options);
     }
 

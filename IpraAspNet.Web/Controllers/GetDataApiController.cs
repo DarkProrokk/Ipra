@@ -1,34 +1,59 @@
-﻿using IpraAspNet.Domain.Context;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using IpraAspNet.Application.IpraService;
-using IpraAspNet.Application.IpraService.Concrete;
 using IpraAspNet.Application.UserService;
-using IpraAspNet.Application.UserService.Interface;
+using IpraAspNet.Application.Interfaces;
+using IpraAspNet.Domain.Interfaces;
+using IpraAspNet.Application.Context;
+using IpraAspNet.Application.Services.IpraService;
+using IpraAspNet.Application.Services.IpraService.Models;
+using IpraAspNet.Application.Services.IpraService.QueryObject;
+using IpraAspNet.Application.Services.UserService;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.IdentityModel.Tokens;
 
 namespace IpraAspNet.Web.Controllers
 {
     [ApiController]
-    [Route("api/[controller]/[action]")]
+    [Route("api/")]
     public class GetDataApiController(
-        IUserService userService,
-        IpraContext context): ControllerBase
+        IIpraService ipraService, IUserService userService): ControllerBase
     {
-
-        [HttpPost]
-        public async Task<IActionResult> GetData([FromBody]IpraSortFilterPageOptions formData)
-        {
-            var ipraService = new ListIpraService(context);
-            var data = await ipraService.SortFilterPage(formData).ToListAsync();
-            return Ok(new JsonResult(new IpraListCombinedDto(formData, data)));
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> GetUsersList([FromBody]UsersSortFilterPageOptions formData)
+        [HttpGet]
+        [Route("users/all")]
+        public IActionResult GetUsersList([FromQuery]UsersFilterOptions filterOptions, [FromQuery] UsersPagingOptions pagingOptions)
         {
             //Получаем список пользователей отсортированный и отфильтрованый в соответствии с options
-            var data = await userService.GetSortedFilteredPage(formData).ToListAsync();
-            return new JsonResult(new { data = new UsersListCombinedDto(formData, data) });
+            var data =  userService.GetSortedFilteredPage(pagingOptions, filterOptions);
+
+            return Ok(new JsonResult(data));
+        }
+
+        [HttpGet]
+        [Route("ipra/all/")]
+        public IActionResult GetData([FromQuery]IpraFilterOptions filterOptions, [FromQuery] IpraPagingOptions pagingOptions)
+        {
+            try
+            {
+                var data = ipraService.SortFilterPage(filterOptions, pagingOptions).ToArray();
+                if (data.IsNullOrEmpty()) return NotFound();
+                return Ok(new JsonResult(new {data = data}));
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                return NotFound($"is not correct value for {e.ParamName}");
+            }
+            catch (Exception exception)
+            {
+                return BadRequest(exception.ToString());
+            }
+        }
+
+        [HttpGet]
+        [Route("ipra/get/")]
+        public IActionResult GetIpraById([FromQuery]int id)
+        {
+            return Ok(ipraService.GetById(id));
         }
     }
 

@@ -48,8 +48,9 @@ var AjaxTableBuilder = (function ($) {
     function BuildTable(response) {
         document.getElementById('dataTable').innerHTML = ''
         let PageNum = document.getElementById('num-pages-text');
+        response = JSON.parse(response)
         response = response.value;
-        PageNum.textContent = "из " + response.options.numPages;
+        //PageNum.textContent = "из " + response.options.numPages;
         // Получаем данные из ответа
         let data = response.data;
         // Создание таблицы
@@ -104,11 +105,11 @@ var AjaxTableBuilder = (function ($) {
             
         });
         $.ajax({
-            url: '/api/GetDataApi/GetData',
-            type: 'post',
-            dataType: 'json',
+            url: '/api/ipra/all',
+            type: 'get',
+            dataType: 'html',
             contentType: "application/json",
-            data: JSON.stringify(jsonData),
+            data: jsonData,
             success: function (response) {
                 BuildTable(response);
                 

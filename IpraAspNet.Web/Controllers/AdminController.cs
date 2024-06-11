@@ -4,7 +4,7 @@ using IpraAspNet.Application.AuthenticationService;
 using IpraAspNet.Application.AuthorizeService.Interface;
 using IpraAspNet.Application.IpraService;
 using IpraAspNet.Application.UserService;
-using IpraAspNet.Application.UserService.Interface;
+using IpraAspNet.Application.Interfaces;
 
 using System.Diagnostics;
 using IpraAspNet.Web.Models;
@@ -14,7 +14,7 @@ namespace IpraAspNet.Web.Controllers
     public class AdminController : Controller
     {
 
-        public IActionResult Index(UsersSortFilterPageOptions options)
+        public IActionResult Index()
         {
             return View();
         }

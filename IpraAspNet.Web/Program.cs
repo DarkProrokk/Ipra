@@ -1,11 +1,15 @@
-using IpraAspNet.Domain.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using IpraAspNet.Application.AuthenticationService;
-using IpraAspNet.Application.AuthorizeService.Concrete;
+using IpraAspNet.Application.AuthenticationService.Concrete;
 using IpraAspNet.Application.AuthorizeService.Interface;
 using IpraAspNet.Application.UserService.Concrete;
-using IpraAspNet.Application.UserService.Interface;
+using IpraAspNet.Application.Interfaces;
+using IpraAspNet.Domain.Entities;
+using IpraAspNet.Domain.Interfaces;
+using IpraAspNet.Application.Context;
+using IpraAspNet.Application.Repositories;
+using IpraAspNet.Application.Services.IpraService.Concrete;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +21,9 @@ builder.Configuration.AddJsonFile("appsettings.Development.json");
 
 builder.Services.AddDbContext<IpraContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresConnection")));
+//Объявление репозиториев
+builder.Services.AddScoped<IIpraRepository, IpraRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 //Ldap
 builder.Services.Configure<LdapConfig>(builder.Configuration.GetSection("ldap"));
@@ -24,6 +31,7 @@ builder.Services.Configure<LdapConfig>(builder.Configuration.GetSection("ldap"))
 //Объявление сервисов
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddTransient<ILdapAuthenticationService, LdapAuthenticationService>();
+builder.Services.AddScoped<IIpraService, IpraService>();
 
 
 builder.Services.AddSwaggerGen(c =>

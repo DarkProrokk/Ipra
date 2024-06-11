@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
-using IpraAspNet.Application.UserService.Interface;
+using IpraAspNet.Application.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

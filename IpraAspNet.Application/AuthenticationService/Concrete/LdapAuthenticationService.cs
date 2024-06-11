@@ -1,13 +1,10 @@
-﻿using IpraAspNet.Domain.Entities;
-using Microsoft.Extensions.Options;
-using System.DirectoryServices.Protocols;
-using System.Net;
+﻿using System.DirectoryServices.Protocols;
 using System.Security.Claims;
-using IpraAspNet.Application.AuthenticationService;
 using IpraAspNet.Application.AuthorizeService.Interface;
-using IpraAspNet.Application.UserService.Interface;
+using IpraAspNet.Application.Interfaces;
+using Microsoft.Extensions.Options;
 
-namespace IpraAspNet.Application.AuthorizeService.Concrete
+namespace IpraAspNet.Application.AuthenticationService.Concrete
 {
     public class LdapAuthenticationService :ILdapAuthenticationService
     {

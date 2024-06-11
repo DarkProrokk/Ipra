@@ -2,7 +2,7 @@
 
 public static class GenericPaging
 {
-    public static IQueryable<T> Page<T>(this IQueryable<T> query, int pageNumZeroStart, int pageSize)
+    public static IEnumerable<T> Page<T>(this IEnumerable<T> query, int pageNumZeroStart, int pageSize)
     {
         if (pageSize == 0)
             throw new ArgumentOutOfRangeException(nameof(pageSize), "pageSize cannot be zero.");

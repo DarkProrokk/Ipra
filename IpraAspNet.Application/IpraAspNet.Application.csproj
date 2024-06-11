@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\IpraAspNet.Domain\IpraAspNet.Domain.csproj" />
+    <ProjectReference Include="..\IpraAspNet.Infrastructure\IpraAspNet.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

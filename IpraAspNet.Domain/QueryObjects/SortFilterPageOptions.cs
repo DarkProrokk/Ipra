@@ -8,7 +8,7 @@ public class SortFilterPageOptions
     /// <summary>
     /// default page size is 10
     /// </summary>
-    public const int DefaultPageSize = 10;
+    private const int DefaultPageSize = 10;
 
     /// <summary>
     /// вариативность размера страницы
@@ -26,9 +26,9 @@ public class SortFilterPageOptions
     /// <summary>
     ///    Количество страниц
     /// </summary>
-    public int NumPages { get; private set; }
+    public int TotalNumPages { get; private set; }
     
-    public int NumNotes { get; private set; }
+    public int TotalNumNotes { get; private set; }
 
     public string? FilterBy { get; set; }
 
@@ -45,14 +45,14 @@ public class SortFilterPageOptions
     /// </summary>
     /// <typeparam name="T">Коллекция на основе которой нужно произвести расчёт</typeparam>
     /// <param name="query"></param>
-    public void SetupRestOfDto<T>(IQueryable<T> query)
+    public void SetupRestOfDto<T>(IEnumerable<T> query)
     {
-        NumNotes = query.Count();
+        TotalNumNotes = query.Count();
 
-        NumPages = (int)Math.Ceiling(
-            (double)NumNotes / PageSize);
+        TotalNumPages = (int)Math.Ceiling(
+            (double)TotalNumPages / PageSize);
         PageNum = Math.Min(
-            Math.Max(1, PageNum), NumPages);
+            Math.Max(1, PageNum), TotalNumPages);
 
         var newCheckState = GenerateCheckState();
         //if (PrevCheckState != newCheckState)
@@ -70,6 +70,6 @@ public class SortFilterPageOptions
     }
     protected virtual string GenerateCheckState()
     {
-        return $"{PageSize},{NumPages}";
+        return $"{PageSize},{TotalNumPages}";
     }
 }
