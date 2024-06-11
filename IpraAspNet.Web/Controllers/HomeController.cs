@@ -19,7 +19,7 @@ public class HomeController(IIpraRepository repository) : Controller
         // {
         //     return NotFound();
         // }
-        return Ok();
+        return View();
     }
 
     public IActionResult Test()
